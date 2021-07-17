@@ -1,7 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
+<<<<<<< HEAD
     "analytics": "9b28487c-5258-4974-9b5d-bdbc036a8d7b"
+=======
+    "analytics": "26bcc5f4-f781-450c-b686-0b5150df7916"
+>>>>>>> 46a6683213f9483fdbb26635ba74602ee9be60cf
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -34,6 +38,10 @@
               "src/styles.css"
             ],
             "scripts": [
+<<<<<<< HEAD
+=======
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+>>>>>>> 46a6683213f9483fdbb26635ba74602ee9be60cf
             ]
           },
           "configurations": {
