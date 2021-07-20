@@ -1,9 +1,7 @@
 body {
   font-family: "Poppins";
 }
-header a{
-  color:black;
-}
+
 
 #principal {
   background: #8e2de2; /* fallback for old browsers */
@@ -53,9 +51,7 @@ color: #30c9cd
 #info-one i{
   font-size: 2rem; color: #30c9cd; text-align:center;
 }
-footer{
-  background-color: #330d69;
-}
+
 .social{
   margin-top: 4rem;
 }
