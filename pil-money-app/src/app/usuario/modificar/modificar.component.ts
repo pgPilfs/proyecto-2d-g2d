@@ -20,19 +20,20 @@ export class ModificarComponent implements OnInit {
   ngOnInit(): void {
     this.modificarForm = this.formBuilder.group({
       nombreCompleto: [
-        '',
+        'Santiago Biolatto',
         Validators.compose([Validators.minLength(3), Validators.required]),
       ],
-      email: ['', Validators.compose([Validators.email, Validators.required])],
+      email: ['santiagobiolatto@outlook.com', Validators.compose([Validators.email, Validators.required])],
       dni: [
-        '',
+        '39497846',
         Validators.compose([
           Validators.minLength(6),
           Validators.required,
+          Validators.pattern("^[0-9]*$"),
         ]),
       ],
-      sexo: ['', Validators.compose([Validators.required])],
-      fechaDeNacimiento: ['', Validators.compose([Validators.required])],
+      sexo: ['Masculino', Validators.compose([Validators.required])],
+      fechaDeNacimiento: ['1996-03-20', Validators.compose([Validators.required])],
     });
     this.passwordForm = this.formBuilder.group({
       nuevaPassword: [

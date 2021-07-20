@@ -16,6 +16,7 @@ import { CrearComponent } from './usuario/crear/crear.component';
 import { ModificarComponent } from './usuario/modificar/modificar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UltimasOperacionesPesosComponent } from './consultas/ultimas-operaciones-pesos/ultimas-operaciones-pesos.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     ConsultaComponent,
     CrearComponent,
-    ModificarComponent
+    ModificarComponent,
+    UltimasOperacionesPesosComponent
   ],
   imports: [
     BrowserModule,

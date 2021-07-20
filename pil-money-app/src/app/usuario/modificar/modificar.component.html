@@ -1,4 +1,4 @@
-<form [formGroup]="modificarForm" (ngSubmit)="submitDatosForm()">
+<form [formGroup]="modificarForm" (ngSubmit)="submitDatosForm()" class="pt-3">
     <div class="container">
         <div class="row mt-3 mb-3">
             <!--Nombre completo-->
@@ -26,7 +26,7 @@
                 <input [class.is-invalid]="modificarForm.get('dni')?.touched && modificarForm.get('dni')?.invalid"
                     type="text" class="form-control" id="dniId" formControlName='dni' required>
                 <div class="invalid-feedback">
-                    Por favor ingrese un DNI valido (Mínimo 6 caracteres).
+                    Por favor ingrese un DNI valido (Mínimo 6 caracteres y solo números).
                 </div>
             </div>
             <!--Sexo-->
