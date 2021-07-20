@@ -20,8 +20,8 @@ export class CrearComponent implements OnInit {
       dni: ['', Validators.compose([Validators.minLength(7), Validators.maxLength(8), Validators.required])],
       sexo: ['', Validators.compose([Validators.required])],
       fechaDeNacimiento: ['', Validators.compose([Validators.required])],
-      contraseña:[Validators.minLength(8), Validators.maxLength(12), Validators.required],
-      confirmarContraseña:[Validators.minLength(8), Validators.maxLength(12), Validators.required],
+      contraseña:['', Validators.compose([Validators.minLength(8), Validators.maxLength(12), Validators.required])],
+      confirmarContraseña:['', Validators.compose([Validators.minLength(8), Validators.maxLength(12), Validators.required])],
     });
     this.crearForm.valueChanges.subscribe(console.log)
   }
@@ -53,7 +53,7 @@ export class CrearComponent implements OnInit {
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Registrar',
+        title: 'Registrar Usuario',
         text: 'Algunos campos son inválidos',
         confirmButtonText: 'Aceptar',
       });

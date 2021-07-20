@@ -3,7 +3,7 @@
         <div class="row mt-3 mb-3">
             <!--Nombre completo-->
             <div class="col-12 col-sm-6">
-                <label for="nombreCompletoId" class="form-label">Nombre completo</label>
+                <label for="nombreCompletoId" class="form-label">Nombre Completo</label>
                 <input
                     [class.is-invalid]="crearForm.get('nombreCompleto')?.touched && crearForm.get('nombreCompleto')?.invalid"
                     type="text" class="form-control" id="nombreCompletoId" formControlName='nombreCompleto' required>
@@ -40,7 +40,7 @@
                     <option value="Otro">Otro</option>
                 </select>
                 <div class="invalid-feedback">
-                    Please seleccione una opción.
+                    Por favor seleccione una opción.
                 </div>
             </div>
             <!--Fecha de nacimiento-->
@@ -51,7 +51,7 @@
                     type="date" class="form-control" id="fechaDeNacimientoId" formControlName='fechaDeNacimiento'
                     min="1900-01-01" max="2999-12-31" required>
                 <div class="invalid-feedback">
-                    Ingrese una fecha valida
+                    Ingrese una fecha valida.
                 </div>
             </div>
             <!--Contraseña-->
@@ -61,7 +61,7 @@
                     [class.is-invalid]="crearForm.get('contraseña')?.touched && crearForm.get('contraseña')?.invalid"
                     type="password" class="form-control" id="contraseñaId" formControlName='contraseña' required>
                 <div class="invalid-feedback">
-                    La contraseña debe tener al menos 8 caracteres y ser alfanumérica.
+                    La contraseña debe tener al menos 8 caracteres.
                 </div>
             </div>
              <!--Confirmar contraseña-->
@@ -71,7 +71,7 @@
                     [class.is-invalid]="crearForm.get('confirmarContraseña')?.touched && crearForm.get('confirmarContraseña')?.invalid"
                     type="password" class="form-control" id="confirmarContraseñaId" formControlName='confirmarContraseña' required>
                 <div class="invalid-feedback">
-                    La contraseña debe tener al menos 8 caracteres y ser alfanumérica.
+                    Las contraseñas deben coincidir.
                 </div>
             </div>
         </div>
