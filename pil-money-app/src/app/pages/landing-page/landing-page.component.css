@@ -1,0 +1,73 @@
+body {
+  font-family: "Poppins";
+}
+header a{
+  color:black;
+}
+
+#principal {
+  background: #8e2de2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #330d69,
+    #8e2de2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #330d69,
+    #8e2de2
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#principal h1,
+p,
+a {
+  color: #fff;
+}
+
+.wave {
+  height: 100px;
+  width: 100%;
+  background: #8e2de2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #330d69,
+    #8e2de2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #330d69,
+    #8e2de2
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card-text{
+  color: black;
+  text-align: center;
+}
+.card-title{
+color: #30c9cd
+}
+.card{
+  box-shadow: 1px 1px 20px hsl(0, 0%, 45%);
+}
+#info-one i{
+  font-size: 2rem; color: #30c9cd; text-align:center;
+}
+footer{
+  background-color: #330d69;
+}
+.social{
+  margin-top: 4rem;
+}
+.social a{
+  text-align: center;
+  height: 4rem;
+  width: 4rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 100%;
+  line-height: 4rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+.social a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
