@@ -1,51 +1,83 @@
-<form [formGroup]="crearForm">
+<form [formGroup]="crearForm" (ngSubmit)="enviarForm()">
     <div class="container">
         <div class="row mt-3 mb-3">
             <!--Nombre completo-->
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <label for="nombreCompletoId" class="form-label">Nombre completo</label>
                 <input
                     [class.is-invalid]="crearForm.get('nombreCompleto')?.touched && crearForm.get('nombreCompleto')?.invalid"
                     type="text" class="form-control" id="nombreCompletoId" formControlName='nombreCompleto' required>
                 <div class="invalid-feedback">
-                    Por favor ingrese un nombre válido.
+                    Por favor ingrese un nombre valido.
                 </div>
             </div>
             <!--Email-->
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <label for="emailId" class="form-label">Email</label>
                 <input [class.is-invalid]="crearForm.get('email')?.touched && crearForm.get('email')?.invalid"
                     type="email" class="form-control" id="emailId" formControlName='email' required>
                 <div class="invalid-feedback">
-                    Por favor ingrese un email válido.
+                    Por favor ingrese un email con formato valido.
                 </div>
             </div>
             <!--DNI-->
-            <div class="col">
+            <div class="col-12 col-sm-4">
                 <label for="dniId" class="form-label">DNI</label>
                 <input [class.is-invalid]="crearForm.get('dni')?.touched && crearForm.get('dni')?.invalid"
-                    type="email" class="form-control" id="dniId" formControlName='dni' required>
+                    type="text" class="form-control" id="dniId" formControlName='dni' required>
                 <div class="invalid-feedback">
-                    Por favor ingrese un DNI válido.
+                    Por favor ingrese un DNI valido (Mínimo 6 caracteres).
                 </div>
             </div>
             <!--Sexo-->
-            <div class="col">
+            <div class="col-12 col-sm-4">
                 <label for="sexoId" class="form-label">Sexo</label>
-                <select [class.is-invalid]="crearForm.get('sexo')?.touched && crearForm.get('sexo')?.invalid" class="custom-select" id="sexoId" formControlName="sexo" required>
+                <select [class.is-invalid]="crearForm.get('sexo')?.touched && crearForm.get('sexo')?.invalid"
+                    class="form-select" id="sexoId" formControlName="sexo" required>
                     <option selected disabled value="">Elija...</option>
-                    <option value="m">Masculino</option>
-                    <option value="f">Femenino</option>
-                    <option value="o">Otro</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
                 </select>
                 <div class="invalid-feedback">
-                    Por favor elija una opción válida.
+                    Please seleccione una opción.
+                </div>
+            </div>
+            <!--Fecha de nacimiento-->
+            <div class="col-12 col-sm-4">
+                <label for="fechaDeNacimientoId" class="form-label">Fecha de nacimiento</label>
+                <input
+                    [class.is-invalid]="crearForm.get('fechaDeNacimiento')?.touched && crearForm.get('fechaDeNacimiento')?.invalid"
+                    type="date" class="form-control" id="fechaDeNacimientoId" formControlName='fechaDeNacimiento'
+                    min="1900-01-01" max="2999-12-31" required>
+                <div class="invalid-feedback">
+                    Ingrese una fecha valida
+                </div>
+            </div>
+            <!--Contraseña-->
+            <div class="col col-sm-12 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                <label for="contraseñaId" class="form-label">Contraseña</label>
+                <input
+                    [class.is-invalid]="crearForm.get('contraseña')?.touched && crearForm.get('contraseña')?.invalid"
+                    type="password" class="form-control" id="contraseñaId" formControlName='contraseña' required>
+                <div class="invalid-feedback">
+                    La contraseña debe tener al menos 8 caracteres y ser alfanumérica.
+                </div>
+            </div>
+             <!--Confirmar contraseña-->
+             <div class="col col-sm-12 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                <label for="confirmarContraseñaId" class="form-label">Confirmar contraseña</label>
+                <input
+                    [class.is-invalid]="crearForm.get('confirmarContraseña')?.touched && crearForm.get('confirmarContraseña')?.invalid"
+                    type="password" class="form-control" id="confirmarContraseñaId" formControlName='confirmarContraseña' required>
+                <div class="invalid-feedback">
+                    La contraseña debe tener al menos 8 caracteres y ser alfanumérica.
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Registrar</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-lg btn-primary">Registrarse</button>
             </div>
         </div>
     </div>
