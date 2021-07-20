@@ -1,1 +1,52 @@
-<p>crear works!</p>
+<form [formGroup]="crearForm">
+    <div class="container">
+        <div class="row mt-3 mb-3">
+            <!--Nombre completo-->
+            <div class="col">
+                <label for="nombreCompletoId" class="form-label">Nombre completo</label>
+                <input
+                    [class.is-invalid]="crearForm.get('nombreCompleto')?.touched && crearForm.get('nombreCompleto')?.invalid"
+                    type="text" class="form-control" id="nombreCompletoId" formControlName='nombreCompleto' required>
+                <div class="invalid-feedback">
+                    Por favor ingrese un nombre válido.
+                </div>
+            </div>
+            <!--Email-->
+            <div class="col">
+                <label for="emailId" class="form-label">Email</label>
+                <input [class.is-invalid]="crearForm.get('email')?.touched && crearForm.get('email')?.invalid"
+                    type="email" class="form-control" id="emailId" formControlName='email' required>
+                <div class="invalid-feedback">
+                    Por favor ingrese un email válido.
+                </div>
+            </div>
+            <!--DNI-->
+            <div class="col">
+                <label for="dniId" class="form-label">DNI</label>
+                <input [class.is-invalid]="crearForm.get('dni')?.touched && crearForm.get('dni')?.invalid"
+                    type="email" class="form-control" id="dniId" formControlName='dni' required>
+                <div class="invalid-feedback">
+                    Por favor ingrese un DNI válido.
+                </div>
+            </div>
+            <!--Sexo-->
+            <div class="col">
+                <label for="sexoId" class="form-label">Sexo</label>
+                <select [class.is-invalid]="crearForm.get('sexo')?.touched && crearForm.get('sexo')?.invalid" class="custom-select" id="sexoId" formControlName="sexo" required>
+                    <option selected disabled value="">Elija...</option>
+                    <option value="m">Masculino</option>
+                    <option value="f">Femenino</option>
+                    <option value="o">Otro</option>
+                </select>
+                <div class="invalid-feedback">
+                    Por favor elija una opción válida.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </div>
+    </div>
+</form>
