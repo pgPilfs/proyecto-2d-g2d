@@ -14,6 +14,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { ConsultaComponent } from './consultas/consulta/consulta.component';
 import { CrearComponent } from './usuario/crear/crear.component';
 import { ModificarComponent } from './usuario/modificar/modificar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ModificarComponent } from './usuario/modificar/modificar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
