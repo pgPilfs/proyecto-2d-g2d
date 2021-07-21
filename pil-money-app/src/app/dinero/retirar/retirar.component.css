@@ -1,0 +1,17 @@
+.main-buttons {
+    margin-top: 2rem;
+    height: 7.5rem;
+  }
+  
+  .retirar-form{
+  text-align: center;
+  margin: 6rem 30%;
+  padding: 3%;
+  border: lightblue 1px solid;
+  border-radius: 10px;
+  }
+  .retirar-form input{
+  
+      margin-bottom: 20px;
+  }
+  

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
@@ -15,8 +14,8 @@ import { ConsultaComponent } from './consultas/consulta/consulta.component';
 import { CrearComponent } from './usuario/crear/crear.component';
 import { ModificarComponent } from './usuario/modificar/modificar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UltimasOperacionesPesosComponent } from './consultas/ultimas-operaciones-pesos/ultimas-operaciones-pesos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,13 +31,22 @@ import { UltimasOperacionesPesosComponent } from './consultas/ultimas-operacione
     ConsultaComponent,
     CrearComponent,
     ModificarComponent,
+<<<<<<< HEAD
     UltimasOperacionesPesosComponent
+=======
+>>>>>>> Maxi
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+<<<<<<< HEAD
     ReactiveFormsModule
+=======
+    FormsModule,
+    ReactiveFormsModule,
+
+>>>>>>> Maxi
   ],
   providers: [],
   bootstrap: [AppComponent]

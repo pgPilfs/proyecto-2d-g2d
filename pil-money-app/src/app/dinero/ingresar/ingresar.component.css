@@ -1,0 +1,16 @@
+.main-buttons {
+  margin-top: 2rem;
+  height: 15rem;
+}
+
+.ingresar-form{
+text-align: center;
+margin: 6rem 30%;
+padding: 3%;
+border: lightblue 1px solid;
+border-radius: 10px;
+}
+.ingresar-form input{
+
+    margin-bottom: 20px;
+}
