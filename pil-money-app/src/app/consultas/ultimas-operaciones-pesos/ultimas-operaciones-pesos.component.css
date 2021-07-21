@@ -1,0 +1,7 @@
+#divTable{
+    max-width: 900px;
+}
+
+#divTable .table{
+    min-width: 500px;
+}
