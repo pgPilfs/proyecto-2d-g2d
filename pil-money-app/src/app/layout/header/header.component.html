@@ -1,20 +1,33 @@
-<div class="header container-fluid">
-  <div class="row">
-    <div class="col-1">
-      <img
-      id="img-nav-bar"
-        src="./../../../assets/logo.jpeg"
-        alt="logoPil"
-        srcset=""
-        style="width: 50px"
-      />
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+     <img src="../assets/img/Logo.png" class="img-fluid" alt="Logo PIL Money"width="50" height="50" >
+    <p class="fs-4 m-2" style="color:#30c9cd; font-weight:bold">PIL Money</p>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="#principal" class="nav-link px-2 link-secondary">Inicio</a></li>
+      <li><a href="#info-one" class="nav-link px-2 link-dark">Acerca de</a></li>
+      <li><a href="#contact" class="nav-link px-2 link-dark">Contacto</a></li>
+
+    </ul>
+    <div class="col-md-3 text-end">
+      <button type="button" class="btn btn-outline-primary me-2">Ingresá</button>
+      <button type="button" class="btn btn-primary">Creá una cuenta</button>
     </div>
-    <div class="col"><h1>MONEY PIL</h1></div>
-    <div class="col-3">
-        <div class="nav-bar-buttons">
-            <button class="btn-sm btn-primary mx-1" type="submit">Tu cuenta</button>
-            <button class="btn-sm btn-secondary mx-1" type="submit">Cerrar sesion</button>
-        </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Demo
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/">Landing page</a></li>
+        <li><a class="dropdown-item" href="/">Iniciar sesión</a></li>
+        <li><a class="dropdown-item" href="/registrar">Registrar</a></li>
+        <li><a class="dropdown-item" href="/modificar">Modificar</a></li>
+        <li><a class="dropdown-item" href="/consulta">Consultar Saldo</a></li>
+        <li><a class="dropdown-item" href="/consulta/operaciones">Últimos operaciones en pesos</a></li>
+        <li><a class="dropdown-item" href="#">Retirar dinero</a></li>
+        <li><a class="dropdown-item" href="#">Consultar saldo actualizado</a></li>
+      </ul>
     </div>
-  </div>
+  </header>
 </div>

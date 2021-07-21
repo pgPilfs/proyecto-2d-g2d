@@ -1,1 +1,219 @@
-<p>landing-page works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+
+
+    <!-- SECTION -->
+    <section id="principal">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="header-content-left">
+              <img
+                src="assets/img/img_01.png"
+                class="img-fluid"
+                alt="Dispositivos y tarjeta Pil Money"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="header-content-right mt-5">
+              <h1 class="display-4">SOMOS EL FUTURO</h1>
+              <p class="fs-6">
+                Somos la experiencia que tu dinero necesitaba. Las carteras y
+                billeteras físicas se han quedado en el pasado, hoy somos el
+                futuro. "La maravilla tiene un nombre: PIL MONEY."
+              </p>
+              <a href="#" class="btn btn-outline-secondary btn-lg mt-2"
+                >Conocé más</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="wave">
+      <div style="height: 150px; overflow: hidden">
+        <svg
+          viewBox="0 0 500 150"
+          preserveAspectRatio="none"
+          style="height: 100%; width: 100%"
+        >
+          <path
+            d="M0.00,49.98 C150.00,150.00 349.20,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+            style="stroke: none; fill: #fff"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <section id="info-one">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col">
+            <div class="info-right">
+              <h2>Mirá nuestros beneficios</h2>
+
+              <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                <div class="col-lg-3">
+                  <div class="card h-100 p-4">
+                    <i class="bi bi-currency-dollar"></i>
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Transferencias</h5>
+                      <p class="card-text">
+                        Enviá y recibí dinero de forma rápida y segura.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="card h-100 p-4">
+                    <i class="bi bi-cart4"></i>
+
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Compras</h5>
+                      <p class="card-text">
+                        Hacé compras en cualquier comercio o página web del
+                        mundo que acepte Mastercard.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="card h-100 p-4">
+                    <i class="bi bi-currency-exchange"></i>
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Cambio de moneda</h5>
+                      <p class="card-text">
+                        Cambia pesos y dólares con una cotización preferencial.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="card h-100 p-4">
+                    <i class="bi bi-credit-card-fill"></i>
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Recarga</h5>
+                      <p class="card-text">
+                        Recargá tus servicios y pagá tus facturas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-lg-9">
+            <h3>Contacto</h3>
+            <form action="">
+              <div class="input-group mb-3 mt-4">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="bi bi-person-fill"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control" [formControl]="name"
+                  placeholder="Nombre"
+                  id="name"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+
+              <div *ngIf="name.errors?.required">
+                El nombre es requerido.
+              </div>
+              <div *ngIf="name.errors?.minlength">
+                El nombre debe tener al menos 4 caracteres.
+              </div>
+              </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="bi bi-envelope-fill"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control" [formControl]="mail"
+                  placeholder="Email"
+                  id="email"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                />
+
+                <div *ngIf="mail.errors && (mail.dirty || mail.touched)">
+                  <p class="text-danger" *ngIf="mail.hasError('required')">
+                  El mail es requerido.
+                  </p>
+                  <p class="text-danger" *ngIf="mail.hasError('email')">
+                  El formato del mail debe ser válido.
+                  </p>
+                  </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text"
+                  ><i class="bi bi-pen-fill"></i
+                ></span>
+                <textarea
+                  name=""
+                  cols="30"
+                  rows="10"
+                  placeholder="Mensaje"
+                  class="form-control" [formControl]="mensaje"
+                  id="mensaje"
+                ></textarea>
+                <div *ngIf="mensaje.invalid && (mensaje.dirty || mensaje.touched)"
+                class="text-danger">
+
+              <div *ngIf="mensaje.errors?.required">
+                El área de mensaje no puede quedar vacio.
+              </div>
+              <div *ngIf="mensaje.errors?.maxlength">
+                El mensaje debe tener menos de 500 caracteres.
+              </div>
+              </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">
+                Enviar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+
+    </footer>
+  </body>
+</html>
