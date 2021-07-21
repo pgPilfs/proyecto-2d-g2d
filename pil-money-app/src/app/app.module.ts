@@ -31,22 +31,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConsultaComponent,
     CrearComponent,
     ModificarComponent,
-<<<<<<< HEAD
     UltimasOperacionesPesosComponent
-=======
->>>>>>> Maxi
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-<<<<<<< HEAD
-    ReactiveFormsModule
-=======
     FormsModule,
     ReactiveFormsModule,
-
->>>>>>> Maxi
   ],
   providers: [],
   bootstrap: [AppComponent]
