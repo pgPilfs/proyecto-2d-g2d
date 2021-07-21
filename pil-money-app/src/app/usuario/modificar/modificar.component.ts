@@ -40,7 +40,7 @@ export class ModificarComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(3),
+          Validators.minLength(8),
           Validators.maxLength(12),
         ]),
       ],
