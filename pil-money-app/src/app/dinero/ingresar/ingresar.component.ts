@@ -18,7 +18,7 @@ export class IngresarComponent implements OnInit {
   ngOnInit(): void {
 this.ingresarDineroForm = this.fb.group({
   metodoDePago: ['', [Validators.required]],
-  monto: ['',[Validators.required]]
+  monto: ['',[Validators.required, Validators.pattern("^[0-9]*$")]]
 })
   }
   seleccionarMetodoDePago(opcion: number) {

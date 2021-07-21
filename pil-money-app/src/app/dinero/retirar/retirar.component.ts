@@ -13,8 +13,8 @@ export class RetirarComponent implements OnInit {
 
   ngOnInit(): void {
     this.retirarDineroForm = this.fb.group({
-      monto:['',[Validators.required]],
-      cbu:['',[Validators.required, Validators.minLength(20),Validators.maxLength(23)]]
+      monto:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
+      cbu:['',[Validators.required, Validators.minLength(20),Validators.maxLength(23)]] //puede ingresar alias cbu o cvu
       
     })
   }

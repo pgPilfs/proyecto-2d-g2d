@@ -13,8 +13,8 @@ export class TransferirComponent implements OnInit {
 
   ngOnInit(): void {
     this.transferirDineroForm = this.fb.group({
-      monto:['',[Validators.required]],
-      cbu:['',[Validators.required]]
+      monto:['',[Validators.required, Validators.pattern("^[0-9]*$")]],
+      cbu:['',[Validators.required]] //puede ingresar alias, cbu o cvu
     })
   }
 }
