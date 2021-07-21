@@ -15,6 +15,7 @@ import { ConsultaComponent } from './consultas/consulta/consulta.component';
 import { CrearComponent } from './usuario/crear/crear.component';
 import { ModificarComponent } from './usuario/modificar/modificar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

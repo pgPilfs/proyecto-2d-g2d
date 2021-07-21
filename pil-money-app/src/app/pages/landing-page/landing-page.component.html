@@ -140,24 +140,47 @@
                 ></span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control" [formControl]="name"
                   placeholder="Nombre"
+                  id="name"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="text-danger">
+
+              <div *ngIf="name.errors?.required">
+                El nombre es requerido.
               </div>
+              <div *ngIf="name.errors?.minlength">
+                El nombre debe tener al menos 4 caracteres.
+              </div>
+              </div>
+              </div>
+
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"
                   ><i class="bi bi-envelope-fill"></i
                 ></span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control" [formControl]="mail"
                   placeholder="Email"
+                  id="email"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
+
+                <div *ngIf="mail.errors && (mail.dirty || mail.touched)">
+                  <p class="text-danger" *ngIf="mail.hasError('required')">
+                  El mail es requerido.
+                  </p>
+                  <p class="text-danger" *ngIf="mail.hasError('email')">
+                  El formato del mail debe ser válido.
+                  </p>
+                  </div>
               </div>
+
               <div class="input-group mb-3">
                 <span class="input-group-text"
                   ><i class="bi bi-pen-fill"></i
@@ -167,8 +190,19 @@
                   cols="30"
                   rows="10"
                   placeholder="Mensaje"
-                  class="form-control"
+                  class="form-control" [formControl]="mensaje"
+                  id="mensaje"
                 ></textarea>
+                <div *ngIf="mensaje.invalid && (mensaje.dirty || mensaje.touched)"
+                class="text-danger">
+
+              <div *ngIf="mensaje.errors?.required">
+                El área de mensaje no puede quedar vacio.
+              </div>
+              <div *ngIf="mensaje.errors?.maxlength">
+                El mensaje debe tener menos de 500 caracteres.
+              </div>
+              </div>
               </div>
               <button type="submit" class="btn btn-primary btn-block">
                 Enviar
