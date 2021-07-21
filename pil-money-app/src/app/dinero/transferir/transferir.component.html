@@ -1,1 +1,13 @@
-<p>transferir works!</p>
+<div class="container">
+   <div *ngIf="retirarMetodo == ''">
+    <h1>Transferir dinero</h1>
+      <form [formGroup]="transferirDineroForm" class="transferir-form" action="">
+        <label class="form-label" for="monto">MONTO</label>
+        <input formControlName="monto" name="monto" class="form-control" type="text" />
+        <label class="form-label" for="cbu">CVU, CBU o alias</label>
+        <input formControlName="cbu" name="cbu" class="form-control" type="text" />
+        <button class="btn btn-success">Confirmar</button>
+      </form>
+    </div>
+  </div>
+  

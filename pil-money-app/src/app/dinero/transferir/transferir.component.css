@@ -1,0 +1,17 @@
+.main-buttons {
+    margin-top: 2rem;
+    height: 15rem;
+  }
+  
+  .transferir-form{
+  text-align: center;
+  margin: 6rem 30%;
+  padding: 3%;
+  border: lightblue 1px solid;
+  border-radius: 10px;
+  }
+  .transferir-form input{
+  
+      margin-bottom: 20px;
+  }
+  

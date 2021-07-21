@@ -1,1 +1,71 @@
-<p>ingresar works!</p>
+<div class="container">
+  <div *ngIf="paymentMethod == ''">
+    <h1>Ingresar dinero</h1>
+    <div class="row main-buttons">
+      <button
+        class="btn btn-block btn-outline-info"
+        (click)="seleccionarMetodoDePago(1)"
+      >
+        Transferencia bancaria
+      </button>
+      <button
+        class="btn btn-block btn-outline-info"
+        (click)="seleccionarMetodoDePago(2)"
+      >
+        Efectivo
+      </button>
+      <button
+        class="btn btn-block btn-outline-info"
+        (click)="seleccionarMetodoDePago(3)"
+      >
+        Tarjeta de debito
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="paymentMethod !== ''">
+    <form [formGroup]="ingresarDineroForm" class="ingresar-form" action="">
+      <label class="form-label" for="monto">MONTO</label>
+      <input formControlName="monto" name="monto" class="form-control" type="text" />
+      <!-- TRANSFERENCIA -->
+      <div *ngIf="paymentMethod == 'transferencia'">
+        <label class="form-label" for="cbu">CVU, CBU o alias</label>
+        <input name="cbu" class="form-control" type="text" />
+      </div>
+      <!-- EFECTIVO -->
+      <div *ngIf="paymentMethod == 'efectivo'">
+        <label class="form-label" for="lugar-de-pago">Lugar donde pagara</label>
+        <br />
+        <input name="rapipago" type="checkbox" /><span>Rapipago</span>
+        <br />
+        <input name="pagofacil" type="checkbox" /><span>Pago Facil</span>
+      </div>
+      <!-- TARJETA DEBITO -->
+      <div *ngIf="paymentMethod == 'tarjeta'">
+        <div class="row">
+          <div class="col">
+            <label for="name">Nombre del titular</label>
+            <input type="text" name="titular" class="form-control" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="numero-tarjeta">Numero de tarjeta</label>
+            <input type="text" name="numero-tarjeta" class="form-control" />
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="fecha-expiracion">Fecha de expiracion</label>
+              <input type="text" name="fecha-expiracion" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="cvv">CVV</label>
+              <input type="text" name="cvv" class="form-control" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success">Confirmar</button>
+    </form>
+  </div>
+</div>
