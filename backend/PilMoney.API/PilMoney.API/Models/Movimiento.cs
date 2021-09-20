@@ -8,22 +8,24 @@ namespace PilMoney.API.Models
     public class Movimiento
     {
         private int Id;
+        private int Id_Cuenta;
         private DateTime Fecha_Hora;
         private float Monto;
         private string Tipo_Movimiento;
-        private int Id_Cuenta;
+        
 
         public Movimiento()
         {
         }
 
-        public Movimiento(int id, DateTime fecha_Hora, float monto, string tipo_Movimiento, int id_Cuenta)
+        public Movimiento(int id, int id_Cuenta, DateTime fecha_Hora,  float monto, string tipo_Movimiento)
         {
             Id1 = id;
+            Id_Cuenta1 = id_Cuenta;
             Fecha_Hora1 = fecha_Hora;
             Monto1 = monto;
             Tipo_Movimiento1 = tipo_Movimiento;
-            Id_Cuenta1 = id_Cuenta;
+            
         }
 
         public int Id1 { get => Id; set => Id = value; }

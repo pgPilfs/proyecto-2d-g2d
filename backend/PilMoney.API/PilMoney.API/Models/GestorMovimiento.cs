@@ -40,20 +40,20 @@ namespace PilMoney.API.Models
                 sqlConnection.Open();
 
                 SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                sqlCommand.CommandText = "listar_movimientos";
-                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "SELECT * FROM Movimiento";
 
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                
-                    while (sqlDataReader.Read())
+
+                while (sqlDataReader.Read())
                     {
                         int id = sqlDataReader.GetInt32(0);
-                        string tipo_Movimiento = sqlDataReader.GetString(1);
-                        DateTime fecha_Hora = sqlDataReader.GetDateTime(0);
-                        float monto = sqlDataReader.GetFloat(0);
-                        int id_Cuenta = sqlDataReader.GetInt32(0);
+                        int id_Cuenta = sqlDataReader.GetInt32(1);
+                        DateTime fecha_Hora = sqlDataReader.GetDateTime(2);
+                        float monto = (float)sqlDataReader.GetDouble(3);
+                        string tipo_Movimiento = sqlDataReader.GetValue(4).ToString();
+                    
 
-                        Movimiento movimiento = new Movimiento(id, fecha_Hora, monto, tipo_Movimiento, id_Cuenta);
+                    Movimiento movimiento = new Movimiento(id, id_Cuenta, fecha_Hora, monto, tipo_Movimiento);
                         listadoMovimientos.Add(movimiento);
                     }
 
