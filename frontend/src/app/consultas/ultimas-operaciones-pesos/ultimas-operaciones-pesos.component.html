@@ -11,30 +11,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Servicio</td>
-                <td class="text-center">18/07/2021 14:25hs</td>
-                <td class="text-end" style="color: rgb(236, 27, 27);">$-1234</td>
-            </tr>
-            <tr>
-                <td>Restaurante</td>
-                <td class="text-center">10/07/2021 23:43hs</td>
-                <td class="text-end" style="color: rgb(236, 27, 27);">$-1850</td>
-            </tr>
-            <tr>
-                <td>Transferencia</td>
-                <td class="text-center">09/07/2021 10:05hs</td>
-                <td class="text-end" style="color: rgb(2, 163, 2)">$5500</td>
-            </tr>
-            <tr>
-                <td>Venta ML</td>
-                <td class="text-center">28/06/2021 15:13hs</td>
-                <td class="text-end" style="color: rgb(2, 163, 2)">$30000</td>
-            </tr>
-            <tr>
-                <td>Cuota</td>
-                <td class="text-center">25/06/2021 00:02hs</td>
-                <td class="text-end" style="color: rgb(236, 27, 27);">$-3500</td>
+            <tr *ngFor="let movimiento of listadoMovimientos">
+                <td>{{movimiento.Tipo_Movimiento1}}</td>
+                <td class="text-center">{{getFormat(movimiento.Fecha_Hora1)}}</td>
+                <td class="text-end">${{movimiento.Monto1}}</td>
             </tr>
         </tbody>
     </table>

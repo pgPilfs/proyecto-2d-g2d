@@ -6,9 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 using PilMoney.API.Models;
 using PilMoney.API.Controllers;
+using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MovimientosController : ApiController
     {
         // GET: api/Movimientos
