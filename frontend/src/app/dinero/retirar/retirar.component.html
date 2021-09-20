@@ -2,24 +2,34 @@
   <div *ngIf="retirarMetodo == ''">
     <h1>Retirar dinero</h1>
     <div class="row main-buttons">
-      <button
-        class="btn btn-block btn-outline-info"
-        (click)="seleccionarMetodoParaRetirar(1)"
-      >
+      <button class="btn btn-block btn-outline-info" (click)="seleccionarMetodoParaRetirar(1)">
         Transferencia bancaria
       </button>
     </div>
   </div>
 
   <div *ngIf="retirarMetodo == 'transferencia'">
-    <form [formGroup]="retirarDineroForm" class="retirar-form" action="">
-      <label class="form-label" for="monto">Monto</label>
-      <input formControlName="monto" name="monto" class="form-control" type="text" />
+    <form [formGroup]="retirarDineroForm" class="retirar-form" (ngSubmit)="submitRetirar()">
+      <div class="col">
+        <label class="form-label" for="montoId">Monto</label>
+        <input [class.is-invalid]="retirarDineroForm.get('monto')?.touched && retirarDineroForm.get('monto')?.invalid"
+          formControlName="monto" id="montoId" class="form-control" type="text" />
+        <div class="invalid-feedback">
+          Ingrese un monto valido
+        </div>
+      </div>
 
-      <label class="form-label" for="cbu">CVU, CBU o alias</label>
-      <input formControlName="cbu" name="cbu" class="form-control" type="text" />
-
-      <button class="btn btn-success" type="submit">Confirmar</button>
+      <div class="col mt-2">
+        <label class="form-label" for="cbuId">CVU, CBU o alias</label>
+        <input [class.is-invalid]="retirarDineroForm.get('cbu')?.touched && retirarDineroForm.get('cbu')?.invalid"
+          formControlName="cbu" id="cbuId" class="form-control" type="text" />
+        <div class="invalid-feedback">
+          Ingrese un CBU/CVU valido
+        </div>
+      </div>
+      <div class="col mt-2">
+        <button class="btn btn-success" type="submit">Confirmar</button>
+      </div>
     </form>
   </div>
 </div>

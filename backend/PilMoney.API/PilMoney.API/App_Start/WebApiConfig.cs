@@ -13,8 +13,8 @@ namespace PilMoney.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.MapHttpAttributeRoutes();
             config.EnableCors();
+            config.MapHttpAttributeRoutes();
 
             // Web API routes
             config.Routes.MapHttpRoute(
