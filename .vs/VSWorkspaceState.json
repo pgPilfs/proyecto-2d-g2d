@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\PilMoney.API",
+    "\\backend\\PilMoney.API\\PilMoney.API",
+    "\\backend\\PilMoney.API\\PilMoney.API\\Areas",
+    "\\backend\\PilMoney.API\\PilMoney.API\\Controllers",
+    "\\backend\\PilMoney.API\\PilMoney.API\\Models",
+    "\\backend\\PilMoney.API\\PilMoney.API\\Models\\Entities",
+    "\\backend\\PilMoney.API\\PilMoney.API\\Models\\Services",
+    "\\frontend"
+  ],
+  "SelectedNode": "\\backend\\PilMoney.API\\PilMoney.API\\Models\\Entities\\Cuenta.cs",
+  "PreviewInSolutionExplorer": false
+}
