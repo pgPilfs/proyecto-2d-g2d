@@ -5,16 +5,15 @@ using System.Linq;
 
 namespace PilMoney.API.Models
 {
-    public partial class Model1 : DbContext
+    public partial class ModelsConfig : DbContext
     {
-        public Model1()
-            : base("name=test")
+        public ModelsConfig()
+            : base("name=dataBaseConnection")
         {
         }
 
         public virtual DbSet<cuentas> cuentas { get; set; }
         public virtual DbSet<movimientos> movimientos { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tipo_cuenta> tipo_cuenta { get; set; }
         public virtual DbSet<transferencias> transferencias { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }

@@ -8,48 +8,48 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PilMoney.API;
+using PilMoney.API.Models;
 
 namespace PilMoney.API.Controllers
 {
-    public class TransferenciasController : ApiController
+    public class transferenciasController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ModelsConfig db = new ModelsConfig();
 
-        // GET: api/Transferencias
-        public IQueryable<Transferencia> GetTransferencias()
+        // GET: api/transferencias
+        public IQueryable<transferencias> Gettransferencias()
         {
-            return db.Transferencias;
+            return db.transferencias;
         }
 
-        // GET: api/Transferencias/5
-        [ResponseType(typeof(Transferencia))]
-        public IHttpActionResult GetTransferencia(int id)
+        // GET: api/transferencias/5
+        [ResponseType(typeof(transferencias))]
+        public IHttpActionResult Gettransferencias(int id)
         {
-            Transferencia transferencia = db.Transferencias.Find(id);
-            if (transferencia == null)
+            transferencias transferencias = db.transferencias.Find(id);
+            if (transferencias == null)
             {
                 return NotFound();
             }
 
-            return Ok(transferencia);
+            return Ok(transferencias);
         }
 
-        // PUT: api/Transferencias/5
+        // PUT: api/transferencias/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTransferencia(int id, Transferencia transferencia)
+        public IHttpActionResult Puttransferencias(int id, transferencias transferencias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != transferencia.Id)
+            if (id != transferencias.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(transferencia).State = EntityState.Modified;
+            db.Entry(transferencias).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace PilMoney.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TransferenciaExists(id))
+                if (!transferenciasExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,50 @@ namespace PilMoney.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Transferencias
-        [ResponseType(typeof(Transferencia))]
-        public IHttpActionResult PostTransferencia(Transferencia transferencia)
+        // POST: api/transferencias
+        [ResponseType(typeof(transferencias))]
+        public IHttpActionResult Posttransferencias(transferencias transferencias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Transferencias.Add(transferencia);
-            db.SaveChanges();
+            db.transferencias.Add(transferencias);
 
-            return CreatedAtRoute("DefaultApi", new { id = transferencia.Id }, transferencia);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (transferenciasExists(transferencias.id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = transferencias.id }, transferencias);
         }
 
-        // DELETE: api/Transferencias/5
-        [ResponseType(typeof(Transferencia))]
-        public IHttpActionResult DeleteTransferencia(int id)
+        // DELETE: api/transferencias/5
+        [ResponseType(typeof(transferencias))]
+        public IHttpActionResult Deletetransferencias(int id)
         {
-            Transferencia transferencia = db.Transferencias.Find(id);
-            if (transferencia == null)
+            transferencias transferencias = db.transferencias.Find(id);
+            if (transferencias == null)
             {
                 return NotFound();
             }
 
-            db.Transferencias.Remove(transferencia);
+            db.transferencias.Remove(transferencias);
             db.SaveChanges();
 
-            return Ok(transferencia);
+            return Ok(transferencias);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +125,9 @@ namespace PilMoney.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TransferenciaExists(int id)
+        private bool transferenciasExists(int id)
         {
-            return db.Transferencias.Count(e => e.Id == id) > 0;
+            return db.transferencias.Count(e => e.id == id) > 0;
         }
     }
 }

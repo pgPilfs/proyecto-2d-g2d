@@ -8,48 +8,48 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PilMoney.API;
+using PilMoney.API.Models;
 
 namespace PilMoney.API.Controllers
 {
-    public class UsuariosController : ApiController
+    public class usuariosController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ModelsConfig db = new ModelsConfig();
 
-        // GET: api/Usuarios
-        public IQueryable<Usuario> GetUsuarios()
+        // GET: api/usuarios
+        public IQueryable<usuarios> Getusuarios()
         {
-            return db.Usuarios;
+            return db.usuarios;
         }
 
-        // GET: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult GetUsuario(int id)
+        // GET: api/usuarios/5
+        [ResponseType(typeof(usuarios))]
+        public IHttpActionResult Getusuarios(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            usuarios usuarios = db.usuarios.Find(id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            return Ok(usuario);
+            return Ok(usuarios);
         }
 
-        // PUT: api/Usuarios/5
+        // PUT: api/usuarios/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsuario(int id, Usuario usuario)
+        public IHttpActionResult Putusuarios(int id, usuarios usuarios)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != usuario.Id)
+            if (id != usuarios.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(usuario).State = EntityState.Modified;
+            db.Entry(usuarios).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace PilMoney.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UsuarioExists(id))
+                if (!usuariosExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,50 @@ namespace PilMoney.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Usuarios
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult PostUsuario(Usuario usuario)
+        // POST: api/usuarios
+        [ResponseType(typeof(usuarios))]
+        public IHttpActionResult Postusuarios(usuarios usuarios)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Usuarios.Add(usuario);
-            db.SaveChanges();
+            db.usuarios.Add(usuarios);
 
-            return CreatedAtRoute("DefaultApi", new { id = usuario.Id }, usuario);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (usuariosExists(usuarios.id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = usuarios.id }, usuarios);
         }
 
-        // DELETE: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult DeleteUsuario(int id)
+        // DELETE: api/usuarios/5
+        [ResponseType(typeof(usuarios))]
+        public IHttpActionResult Deleteusuarios(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            usuarios usuarios = db.usuarios.Find(id);
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            db.Usuarios.Remove(usuario);
+            db.usuarios.Remove(usuarios);
             db.SaveChanges();
 
-            return Ok(usuario);
+            return Ok(usuarios);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +125,9 @@ namespace PilMoney.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UsuarioExists(int id)
+        private bool usuariosExists(int id)
         {
-            return db.Usuarios.Count(e => e.Id == id) > 0;
+            return db.usuarios.Count(e => e.id == id) > 0;
         }
     }
 }

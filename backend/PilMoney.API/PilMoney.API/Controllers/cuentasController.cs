@@ -12,44 +12,44 @@ using PilMoney.API.Models;
 
 namespace PilMoney.API.Controllers
 {
-    public class movimientosController : ApiController
+    public class cuentasController : ApiController
     {
         private ModelsConfig db = new ModelsConfig();
 
-        // GET: api/movimientos
-        public IQueryable<movimientos> Getmovimientos()
+        // GET: api/cuentas
+        public IQueryable<cuentas> Getcuentas()
         {
-            return db.movimientos;
+            return db.cuentas;
         }
 
-        // GET: api/movimientos/5
-        [ResponseType(typeof(movimientos))]
-        public IHttpActionResult Getmovimientos(int id)
+        // GET: api/cuentas/5
+        [ResponseType(typeof(cuentas))]
+        public IHttpActionResult Getcuentas(int id)
         {
-            movimientos movimientos = db.movimientos.Find(id);
-            if (movimientos == null)
+            cuentas cuentas = db.cuentas.Find(id);
+            if (cuentas == null)
             {
                 return NotFound();
             }
 
-            return Ok(movimientos);
+            return Ok(cuentas);
         }
 
-        // PUT: api/movimientos/5
+        // PUT: api/cuentas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putmovimientos(int id, movimientos movimientos)
+        public IHttpActionResult Putcuentas(int id, cuentas cuentas)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != movimientos.id)
+            if (id != cuentas.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(movimientos).State = EntityState.Modified;
+            db.Entry(cuentas).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace PilMoney.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!movimientosExists(id))
+                if (!cuentasExists(id))
                 {
                     return NotFound();
                 }
@@ -70,16 +70,16 @@ namespace PilMoney.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/movimientos
-        [ResponseType(typeof(movimientos))]
-        public IHttpActionResult Postmovimientos(movimientos movimientos)
+        // POST: api/cuentas
+        [ResponseType(typeof(cuentas))]
+        public IHttpActionResult Postcuentas(cuentas cuentas)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.movimientos.Add(movimientos);
+            db.cuentas.Add(cuentas);
 
             try
             {
@@ -87,7 +87,7 @@ namespace PilMoney.API.Controllers
             }
             catch (DbUpdateException)
             {
-                if (movimientosExists(movimientos.id))
+                if (cuentasExists(cuentas.id))
                 {
                     return Conflict();
                 }
@@ -97,23 +97,23 @@ namespace PilMoney.API.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = movimientos.id }, movimientos);
+            return CreatedAtRoute("DefaultApi", new { id = cuentas.id }, cuentas);
         }
 
-        // DELETE: api/movimientos/5
-        [ResponseType(typeof(movimientos))]
-        public IHttpActionResult Deletemovimientos(int id)
+        // DELETE: api/cuentas/5
+        [ResponseType(typeof(cuentas))]
+        public IHttpActionResult Deletecuentas(int id)
         {
-            movimientos movimientos = db.movimientos.Find(id);
-            if (movimientos == null)
+            cuentas cuentas = db.cuentas.Find(id);
+            if (cuentas == null)
             {
                 return NotFound();
             }
 
-            db.movimientos.Remove(movimientos);
+            db.cuentas.Remove(cuentas);
             db.SaveChanges();
 
-            return Ok(movimientos);
+            return Ok(cuentas);
         }
 
         protected override void Dispose(bool disposing)
@@ -125,9 +125,9 @@ namespace PilMoney.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool movimientosExists(int id)
+        private bool cuentasExists(int id)
         {
-            return db.movimientos.Count(e => e.id == id) > 0;
+            return db.cuentas.Count(e => e.id == id) > 0;
         }
     }
 }

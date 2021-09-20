@@ -168,17 +168,19 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\cuentasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\movimientosController.cs" />
-    <Compile Include="Controllers\usuarios1Controller.cs" />
+    <Compile Include="Controllers\tipo_cuentaController.cs" />
+    <Compile Include="Controllers\transferenciasController.cs" />
+    <Compile Include="Controllers\usuariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\cuentas.cs" />
-    <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\ModelsConfig.cs" />
     <Compile Include="Models\movimientos.cs" />
-    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\tipo_cuenta.cs" />
     <Compile Include="Models\transferencias.cs" />
     <Compile Include="Models\usuarios.cs" />
