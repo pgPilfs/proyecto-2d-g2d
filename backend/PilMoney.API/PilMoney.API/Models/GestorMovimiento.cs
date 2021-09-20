@@ -20,8 +20,7 @@ namespace PilMoney.API.Models
                 sqlConnection.Open();
 
                 SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                sqlCommand.CommandText = "insertar_movimiento";
-                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.CommandText = "INSERT INTO dbo.Movimiento (Id_Cuenta, Fecha_Hora, Monto, Tipo_Movimiento) VALUES (@Id_Cuenta, @Fecha_Hora, @Monto, @Tipo_Movimiento);";
                 sqlCommand.Parameters.Add(new SqlParameter("@Id_Cuenta", movimiento.Id_Cuenta1));
                 sqlCommand.Parameters.Add(new SqlParameter("@Tipo_Movimiento", movimiento.Tipo_Movimiento1));
                 sqlCommand.Parameters.Add(new SqlParameter("@Fecha_Hora", movimiento.Fecha_Hora1));
