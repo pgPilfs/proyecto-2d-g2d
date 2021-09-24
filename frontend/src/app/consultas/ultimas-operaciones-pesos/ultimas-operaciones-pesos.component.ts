@@ -7,6 +7,7 @@ import { ConsultasService } from '../consultas.service';
   styleUrls: ['./ultimas-operaciones-pesos.component.css'],
 })
 export class UltimasOperacionesPesosComponent implements OnInit {
+
   movimientos: any[] = [];
 
   constructor(private consultasService: ConsultasService) {}
@@ -17,4 +18,5 @@ export class UltimasOperacionesPesosComponent implements OnInit {
       console.log(this.movimientos);
     });
   }
+  
 }
