@@ -49,7 +49,10 @@ namespace PilMoney.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(cuentas).State = EntityState.Modified;
+            var existingEntity = db.cuentas.Find(id);
+            db.Entry(existingEntity).CurrentValues.SetValues(cuentas);
+
+            // db.Entry(cuentas).State = EntityState.Modified;
 
             try
             {
