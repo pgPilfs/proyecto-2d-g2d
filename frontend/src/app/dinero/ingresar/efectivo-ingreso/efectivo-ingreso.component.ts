@@ -38,7 +38,7 @@ export class EfectivoIngresoComponent implements OnInit {
       tipo_movimiento: this.ingresoEfectivo.value.pago,
       id_cuenta: 2,
     };
-    console.log(bodyMovimiento);
+    console.log("BODY MOVIMIENTO",bodyMovimiento);
 
     const res = await this.dineroService
       .registrarMovimiento(bodyMovimiento)

@@ -28,7 +28,7 @@ export class RetirarComponent implements OnInit {
   async submitRetiroDinero() {
     let bodyMovimiento = {
       fecha_hora: new Date(),
-      monto: parseFloat(this.retiroDinero.value.monto),
+      monto: parseFloat(this.retiroDinero.value.monto) * -1,
       tipo_movimiento: 'Retiro cajero',
       id_cuenta: 2,
     };
