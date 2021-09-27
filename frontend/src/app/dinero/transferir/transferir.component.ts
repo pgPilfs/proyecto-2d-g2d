@@ -43,89 +43,88 @@ export class TransferirComponent implements OnInit {
     //this.transferirDineroForm.valueChanges.subscribe(console.log);
   }
 
-  submitTransferencia() {
+  async submitTransferencia() {
     if (!this.transferirDineroForm.valid) {
       this.transferirDineroForm.markAllAsTouched();
     } else {
-      this.dineroService.getAllCuentas().subscribe((res: any) => {
-        res.forEach((cuenta: any) => {
-          if (cuenta.cvu === this.transferirDineroForm.get('cvu')?.value) {
-            this.cuentaTransferida = cuenta;
+      const allCuentas: any = await this.dineroService
+        .getAllCuentas()
+        .toPromise();
+
+      allCuentas.forEach((cuenta: any) => {
+        if (cuenta.cvu === this.transferirDineroForm.get('cvu')?.value) {
+          this.cuentaTransferida = cuenta;
+        }
+      });
+      console.log(this.cuentaTransferida);
+      if (this.cuentaTransferida?.cvu) {
+        const cuentaNew = {
+          id: this.cuentaTransferida.id,
+          transferencias: this.cuentaTransferida.transferencias,
+          transferencias1: this.cuentaTransferida.transferencias1,
+          usuarios: this.cuentaTransferida.usuarios,
+          tipo_cuenta: this.cuentaTransferida.tipo_cuenta,
+          movimientos: this.cuentaTransferida.movimientos,
+          fecha_alta: this.cuentaTransferida.fecha_alta,
+          id_tipo_cuenta: this.cuentaTransferida.id_tipo_cuenta,
+          cvu: this.cuentaTransferida.cvu,
+          estado: this.cuentaTransferida.estado,
+          saldo:
+            parseFloat(this.cuentaTransferida.saldo) +
+            parseFloat(this.transferirDineroForm.get('monto')?.value),
+        };
+        console.log(cuentaNew);
+
+        const updateSaldo = await this.dineroService
+          .updateCuenta(this.cuentaTransferida.id!, cuentaNew)
+          .toPromise();
+
+        console.log(updateSaldo);
+
+        const allCuentasNuevo: any = await this.dineroService
+          .getAllCuentas()
+          .toPromise();
+
+        allCuentasNuevo.forEach((cuenta: any) => {
+          if (cuenta.cvu === this.cuentaTransferida.cvu!) {
+            this.cuentaAMostrar = cuenta;
+            console.log(cuenta.saldo);
           }
         });
 
-        if (this.cuentaTransferida?.cvu) {
-          this.updateCuenta();
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No existe una cuenta vinculada al CVU dado',
-            confirmButtonText: 'Aceptar',
-          });
-        }
-      });
+        let bodyTransferencia = {
+          fecha_hora: new Date(),
+          monto: parseFloat(this.transferirDineroForm.get('monto')?.value),
+          id_cuenta_envia: 2,
+          id_cuenta_recibe: this.cuentaTransferida.id,
+        };
+
+        const transferenciaRegistrada = await this.dineroService
+          .registrarTransferencia(bodyTransferencia)
+          .toPromise();
+        console.log(transferenciaRegistrada);
+
+        let bodyMovimiento = {
+          fecha_hora: new Date(),
+          monto: parseFloat(this.transferirDineroForm.get('monto')?.value) * -1,
+          tipo_movimiento: 'Transferencia',
+          id_cuenta: 2,
+        };
+
+        const movimientoRegistrado = await this.dineroService
+          .registrarMovimiento(bodyMovimiento)
+          .toPromise();
+
+        console.log(movimientoRegistrado);
+        this.cuentaTransferida = {};
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No existe una cuenta vinculada al CVU dado',
+          confirmButtonText: 'Aceptar',
+        });
+      }
     }
-  }
-  updateCuenta() {
-    const cuentaNew = {
-      ...this.cuentaTransferida,
-      saldo:
-        parseFloat(this.cuentaTransferida.saldo) +
-        parseFloat(this.transferirDineroForm.get('monto')?.value),
-    };
-    console.log(cuentaNew);
-    this.dineroService
-      .updateCuenta(this.cuentaTransferida.id!, cuentaNew)
-      .subscribe((res) => {
-        if (res === null) {
-          this.getCuenta(this.cuentaTransferida.cvu!);
-          this.registrarTransferencia();
-          Swal.fire({
-            icon: 'success',
-            title: 'Completado',
-            text: 'Transferencia realizada con éxito',
-            confirmButtonText: 'Aceptar',
-          });
-        }
-      });
-  }
-
-  getCuenta(cvu: any) {
-    this.dineroService.getAllCuentas().subscribe((res: any) => {
-      res.forEach((cuenta: any) => {
-        if (cuenta.cvu === cvu) {
-          this.cuentaAMostrar = cuenta;
-        }
-      });
-    });
-  }
-
-  registrarTransferencia() {
-    let body = {
-      fecha_hora: new Date(),
-      monto: parseFloat(this.transferirDineroForm.get('monto')?.value),
-      id_cuenta_envia: 3,
-      id_cuenta_recibe: this.cuentaTransferida.id,
-    };
-    this.cuentaTransferida = {};
-    this.dineroService.registrarTransferencia(body).subscribe((res) => {
-      console.log(res);
-      this.registrarMovimiento();
-    });
-  }
-
-  registrarMovimiento() {
-    let body = {
-      fecha_hora: new Date(),
-      monto: parseFloat(this.transferirDineroForm.get('monto')?.value) * -1,
-      tipo_movimiento: 'Transferencia',
-      id_cuenta: 3,
-    };
-
-    this.dineroService.registrarMovimiento(body).subscribe((res) => {
-      console.log(res);
-      this.cuentaTransferida = {};
-    });
   }
 }
