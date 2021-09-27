@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DineroService } from '../dinero.service';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
+import { DineroService } from '../../dinero.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-retirar',
-  templateUrl: './retirar.component.html',
-  styleUrls: ['./retirar.component.css'],
+  selector: 'app-tarjeta-ingreso',
+  templateUrl: './tarjeta-ingreso.component.html',
+  styleUrls: ['./tarjeta-ingreso.component.css'],
 })
-export class RetirarComponent implements OnInit {
-  retiroDinero!: FormGroup;
+export class TarjetaIngresoComponent implements OnInit {
+  ingresoTarjeta: FormGroup = new FormGroup({});
   constructor(private fb: FormBuilder, private dineroService: DineroService) {}
 
   ngOnInit(): void {
-    this.retiroDinero = this.fb.group({
+    this.ingresoTarjeta = this.fb.group({
       monto: [
         '',
         Validators.compose([
@@ -22,14 +27,14 @@ export class RetirarComponent implements OnInit {
         ]),
       ],
     });
-    this.retiroDinero.valueChanges.subscribe(console.log);
+    this.ingresoTarjeta.valueChanges.subscribe(console.log);
   }
 
-  async submitRetiroDinero() {
+  async submitIngresoTarjeta() {
     let bodyMovimiento = {
       fecha_hora: new Date(),
-      monto: parseFloat(this.retiroDinero.value.monto) * -1,
-      tipo_movimiento: 'Retiro cajero',
+      monto: parseFloat(this.ingresoTarjeta.value.monto),
+      tipo_movimiento: 'Tarjeta-Debito',
       id_cuenta: 2,
     };
     console.log(bodyMovimiento);
@@ -43,20 +48,20 @@ export class RetirarComponent implements OnInit {
     const bodyCuenta = {
       ...cuenta,
       saldo:
-        parseFloat(cuenta.saldo) -
-        parseFloat(this.retiroDinero.get('monto')?.value),
+        parseFloat(cuenta.saldo) +
+        parseFloat(this.ingresoTarjeta.get('monto')?.value),
     };
 
-    const updateSaldoCuenta = await this.dineroService
+    const updateSaldoCuentaEnvia = await this.dineroService
       .updateCuenta(2, bodyCuenta)
       .toPromise();
 
-    console.log(updateSaldoCuenta);
+    console.log(updateSaldoCuentaEnvia);
     if (res) {
       Swal.fire({
         icon: 'success',
         title: 'Listo!',
-        text: 'Retiro de dinero realizado',
+        text: 'Carga por debito realizada',
         confirmButtonText: 'Aceptar',
       });
     }

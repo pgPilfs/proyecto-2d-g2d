@@ -14,7 +14,6 @@ namespace PilMoney.API.Models
             cuentas = new HashSet<cuentas>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

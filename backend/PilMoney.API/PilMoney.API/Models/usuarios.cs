@@ -8,7 +8,6 @@ namespace PilMoney.API.Models
 
     public partial class usuarios
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [Required]

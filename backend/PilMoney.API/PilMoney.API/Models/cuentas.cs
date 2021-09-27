@@ -17,7 +17,6 @@ namespace PilMoney.API.Models
             usuarios = new HashSet<usuarios>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public double saldo { get; set; }

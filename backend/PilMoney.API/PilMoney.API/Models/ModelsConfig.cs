@@ -14,6 +14,7 @@ namespace PilMoney.API.Models
 
         public virtual DbSet<cuentas> cuentas { get; set; }
         public virtual DbSet<movimientos> movimientos { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tipo_cuenta> tipo_cuenta { get; set; }
         public virtual DbSet<transferencias> transferencias { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
@@ -35,8 +36,9 @@ namespace PilMoney.API.Models
 
             modelBuilder.Entity<cuentas>()
                 .HasMany(e => e.transferencias)
-                .WithOptional(e => e.cuentas)
-                .HasForeignKey(e => e.id_cuenta_envia);
+                .WithRequired(e => e.cuentas)
+                .HasForeignKey(e => e.id_cuenta_envia)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<cuentas>()
                 .HasMany(e => e.transferencias1)

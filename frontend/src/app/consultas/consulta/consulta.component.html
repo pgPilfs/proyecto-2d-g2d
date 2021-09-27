@@ -7,11 +7,11 @@
         <div class="card-header text-center">Saldo disponible</div>
         <div class="card-body">
           <h6 class="card-title fw-light">Pesos AR</h6>
-          <p class="card-text text-end fs-4">$ 0,00</p>
+          <p class="card-text text-end fs-4">{{saldo | currency: 'ARS':'symbol-narrow'}}</p>
           <h6 class="card-title fw-light">Dólares US</h6>
           <p class="card-text text-end fs-4">U$S 0,00</p>
         </div>
-        <div class="card-footer text-center"><a [routerLink]="['/consultas/operaciones']" class="stretched-link">Últimos
+        <div class="card-footer text-center"><a [routerLink]="['/consulta/operaciones']" class="stretched-link">Últimos
             movimientos</a> </div>
       </div>
     </div>

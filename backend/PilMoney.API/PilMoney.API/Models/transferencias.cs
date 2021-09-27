@@ -8,14 +8,13 @@ namespace PilMoney.API.Models
 
     public partial class transferencias
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public DateTime fecha_hora { get; set; }
 
         public double monto { get; set; }
 
-        public int? id_cuenta_envia { get; set; }
+        public int id_cuenta_envia { get; set; }
 
         public int? id_cuenta_recibe { get; set; }
 

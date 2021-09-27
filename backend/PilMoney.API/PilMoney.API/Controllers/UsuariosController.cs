@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using PilMoney.API.Models;
+using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
@@ -82,22 +83,7 @@ namespace PilMoney.API.Controllers
             }
 
             db.usuarios.Add(usuarios);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (usuariosExists(usuarios.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuarios.id }, usuarios);
         }

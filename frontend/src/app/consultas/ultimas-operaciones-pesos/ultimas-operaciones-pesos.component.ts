@@ -7,16 +7,18 @@ import { ConsultasService } from '../consultas.service';
   styleUrls: ['./ultimas-operaciones-pesos.component.css'],
 })
 export class UltimasOperacionesPesosComponent implements OnInit {
-
   movimientos: any[] = [];
 
   constructor(private consultasService: ConsultasService) {}
 
+  // Ejemplo como si el usuarios con id 2 estaria logueado
+  // Con authenticacion seria getMovimientosUsuario(idUsuarioLogueado)
   ngOnInit(): void {
-    this.consultasService.getAllMovimientos().subscribe((res: any) => {
-      this.movimientos = res;
-      console.log(this.movimientos);
+    console.log(new Date());
+
+    this.consultasService.getCuentaActual(2).subscribe((res: any) => {
+      this.movimientos = res.movimientos;
+      console.log(res);
     });
   }
-  
 }

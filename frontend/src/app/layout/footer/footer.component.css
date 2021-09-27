@@ -1,10 +1,12 @@
-.footer{
+.footer {
   background-color: #330d69;
+  width: 100%;
 }
-.social{
+
+.social {
   margin-top: 4rem;
 }
-.social a{
+.social a {
   text-align: center;
   height: 4rem;
   width: 4rem;
