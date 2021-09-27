@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import Swal from 'sweetalert2';
-import { UsuarioService, usuarios} from '../usuario.service';
+import { UsuarioService, usuarios } from '../usuario.service';
 
 @Component({
   selector: 'app-crear',
@@ -9,33 +14,72 @@ import { UsuarioService, usuarios} from '../usuario.service';
   styleUrls: ['./crear.component.css'],
 })
 export class CrearComponent implements OnInit {
-
   crearForm!: FormGroup;
   usuario: usuarios = new usuarios();
 
-  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit(): void {
     this.crearForm = this.formBuilder.group({
-      nombreCompleto: ['', Validators.compose([Validators.minLength(3), Validators.required])],
+      nombreCompleto: [
+        '',
+        Validators.compose([Validators.minLength(3), Validators.required]),
+      ],
       email: ['', Validators.compose([Validators.email, Validators.required])],
-      dni: ['', Validators.compose([Validators.minLength(7), Validators.maxLength(8), Validators.required])],
+      dni: [
+        '',
+        Validators.compose([
+          Validators.minLength(7),
+          Validators.maxLength(8),
+          Validators.required,
+        ]),
+      ],
       sexo: ['', Validators.compose([Validators.required])],
       fechaDeNacimiento: ['', Validators.compose([Validators.required])],
-      contraseña:['', Validators.compose([Validators.minLength(8), Validators.maxLength(12), Validators.required])],
-      confirmarContraseña:['', Validators.compose([Validators.minLength(8), Validators.maxLength(12), Validators.required])],
+      contraseña: [
+        '',
+        Validators.compose([
+          Validators.minLength(8),
+          Validators.maxLength(12),
+          Validators.required,
+        ]),
+      ],
+      confirmarContraseña: [
+        '',
+        Validators.compose([
+          Validators.minLength(8),
+          Validators.maxLength(12),
+          Validators.required,
+        ]),
+      ],
     });
-    this.crearForm.valueChanges.subscribe(console.log)
+    this.crearForm.valueChanges.subscribe(console.log);
   }
 
   enviarForm(usuario: usuarios) {
     if (this.crearForm.valid) {
       console.log(usuario);
-      this.usuarioService.saveUsuario(usuario).subscribe(
-       res =>{ console.log(res);},
-       err => { console.log(err); }
+      this.usuarioService.crearCuenta().subscribe((res: any) => {
+        console.log('Respuesta crear cuenta', res);
 
-      )
+        usuario = {
+          ...usuario,
+          id_cuenta: res.id,
+        };
+
+        this.usuarioService.saveUsuario(usuario).subscribe(
+          (res) => {
+            console.log('Respuesta crear usuario', res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      });
+
       Swal.fire({
         icon: 'success',
         title: 'Registrar',

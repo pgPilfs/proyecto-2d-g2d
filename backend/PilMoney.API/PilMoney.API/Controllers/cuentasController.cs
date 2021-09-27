@@ -77,16 +77,16 @@ namespace PilMoney.API.Controllers
 
         // POST: api/cuentas
         [ResponseType(typeof(cuentas))]
-        public IHttpActionResult Postcuentas(cuentas cuentas)
+        public IHttpActionResult Postcuentas()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
+            cuentas cuentas = new cuentas();
 
             cuentas.saldo = 0;
             cuentas.cvu = CVUGenerator();
             cuentas.estado = "Activo";
+            cuentas.fecha_alta = DateTime.Now;
+            cuentas.id_tipo_cuenta = 1;
 
             db.cuentas.Add(cuentas);
             db.SaveChanges();

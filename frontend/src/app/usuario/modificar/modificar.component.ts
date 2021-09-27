@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { UsuarioService, usuarios} from '../usuario.service';
+import { UsuarioService, usuarios } from '../usuario.service';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.component.html',
@@ -15,29 +13,47 @@ export class ModificarComponent implements OnInit {
   modificarForm!: FormGroup;
   passwordForm!: FormGroup;
   usuario: usuarios = new usuarios();
+  usuarioResponse: any;
 
-  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit(): void {
-
-      this.usuarioService.getUsuario(0).subscribe(res => { console.log(res)}, (err) => console.log(err))
+    this.usuarioService.getUsuario(1).subscribe(
+      (res: any) => {
+        this.usuarioResponse = res;
+        console.log('respuesta un usuario', res);
+        this.modificarForm.controls.nombreCompleto.patchValue(
+          res.nombre_completo
+        );
+        this.modificarForm.controls.dni.patchValue(res.dni);
+        this.modificarForm.controls.email.patchValue(res.email);
+        this.modificarForm.controls.fechaDeNacimiento.patchValue(
+          moment(res.fecha_nac).format('YYYY-MM-DD')
+        );
+        this.modificarForm.controls.sexo.patchValue(res.sexo);
+      },
+      (err) => console.log(err)
+    );
 
     this.modificarForm = this.formBuilder.group({
       nombreCompleto: [
-        'Santiago Biolatto',
+        '',
         Validators.compose([Validators.minLength(3), Validators.required]),
       ],
-      email: ['santiagobiolatto@outlook.com', Validators.compose([Validators.email, Validators.required])],
+      email: ['', Validators.compose([Validators.email, Validators.required])],
       dni: [
-        '39497846',
+        '',
         Validators.compose([
           Validators.minLength(6),
           Validators.required,
-          Validators.pattern("^[0-9]*$"),
+          Validators.pattern('^[0-9]*$'),
         ]),
       ],
       sexo: ['Masculino', Validators.compose([Validators.required])],
-      fechaDeNacimiento: ['1996-03-20', Validators.compose([Validators.required])],
+      fechaDeNacimiento: ['', Validators.compose([Validators.required])],
     });
     this.passwordForm = this.formBuilder.group({
       nuevaPassword: [
@@ -55,7 +71,23 @@ export class ModificarComponent implements OnInit {
 
   submitDatosForm(usuario: usuarios) {
     if (this.modificarForm.valid) {
-      this.usuarioService.updateUsuario((0), this.usuario).subscribe(res=> {console.log(res)}, error => console.log(error));
+      const newUser = {
+        ...this.usuarioResponse,
+        dni: this.usuario.dni,
+        email: this.usuario.email,
+        fecha_nac: this.usuario.fecha_nac,
+        nombre_completo: this.usuario.nombre_completo,
+        sexo: this.usuario.sexo,
+      };
+
+      console.log('Usuario antes de updatear', newUser);
+
+      this.usuarioService.updateUsuario(1, newUser).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (error) => console.log(error)
+      );
       Swal.fire({
         icon: 'success',
         title: 'Modificar',
@@ -91,6 +123,16 @@ export class ModificarComponent implements OnInit {
 
   submitPasswordForm() {
     if (this.passwordForm.valid) {
+      const newUser = {
+        ...this.usuarioResponse,
+        password: this.usuario.password,
+      };
+      this.usuarioService.updateUsuario(1, newUser).subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (error) => console.log(error)
+      );
       Swal.fire({
         icon: 'success',
         title: 'Modificar contraseña',

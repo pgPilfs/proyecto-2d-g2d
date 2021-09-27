@@ -51,8 +51,10 @@ namespace PilMoney.API.Controllers
             {
                 return BadRequest();
             }
+            var existingEntity = db.usuarios.Find(id);
+            db.Entry(existingEntity).CurrentValues.SetValues(usuarios);
 
-            db.Entry(usuarios).State = EntityState.Modified;
+            //db.Entry(usuarios).State = EntityState.Modified;
 
             try
             {
