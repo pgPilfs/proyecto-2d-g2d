@@ -11,7 +11,7 @@ export class TransferenciaIngresoComponent implements OnInit {
   constructor(private dineroService: DineroService) {}
 
   ngOnInit(): void {
-    this.dineroService.getCuentaActual(3).subscribe((res: any) => {
+    this.dineroService.getCuentaPorId(2).subscribe((res: any) => {
       this.cvu = res.cvu;
       console.log(res);
     });

@@ -7,18 +7,18 @@ import {
 } from '@angular/forms';
 import { DineroService } from '../../dinero.service';
 import Swal from 'sweetalert2';
+
 @Component({
-  selector: 'app-efectivo-ingreso',
-  templateUrl: './efectivo-ingreso.component.html',
-  styleUrls: ['./efectivo-ingreso.component.css'],
+  selector: 'app-tarjeta-ingreso',
+  templateUrl: './tarjeta-ingreso.component.html',
+  styleUrls: ['./tarjeta-ingreso.component.css'],
 })
-export class EfectivoIngresoComponent implements OnInit {
-  ingresoEfectivo: FormGroup = new FormGroup({});
+export class TarjetaIngresoComponent implements OnInit {
+  ingresoTarjeta: FormGroup = new FormGroup({});
   constructor(private fb: FormBuilder, private dineroService: DineroService) {}
-  radioPago: FormControl = new FormControl();
 
   ngOnInit(): void {
-    this.ingresoEfectivo = this.fb.group({
+    this.ingresoTarjeta = this.fb.group({
       monto: [
         '',
         Validators.compose([
@@ -26,16 +26,15 @@ export class EfectivoIngresoComponent implements OnInit {
           Validators.pattern('^[0-9]*$'),
         ]),
       ],
-      pago: [this.radioPago, Validators.required],
     });
-    this.ingresoEfectivo.valueChanges.subscribe(console.log);
+    this.ingresoTarjeta.valueChanges.subscribe(console.log);
   }
 
-  async submitIngresoEfectivo() {
+  async submitIngresoTarjeta() {
     let bodyMovimiento = {
       fecha_hora: new Date(),
-      monto: parseFloat(this.ingresoEfectivo.value.monto),
-      tipo_movimiento: this.ingresoEfectivo.value.pago,
+      monto: parseFloat(this.ingresoTarjeta.value.monto),
+      tipo_movimiento: 'Tarjeta-Debito',
       id_cuenta: 2,
     };
     console.log(bodyMovimiento);
@@ -50,7 +49,7 @@ export class EfectivoIngresoComponent implements OnInit {
       ...cuenta,
       saldo:
         parseFloat(cuenta.saldo) +
-        parseFloat(this.ingresoEfectivo.get('monto')?.value),
+        parseFloat(this.ingresoTarjeta.get('monto')?.value),
     };
 
     const updateSaldoCuentaEnvia = await this.dineroService
@@ -58,12 +57,11 @@ export class EfectivoIngresoComponent implements OnInit {
       .toPromise();
 
     console.log(updateSaldoCuentaEnvia);
-
     if (res) {
       Swal.fire({
         icon: 'success',
         title: 'Listo!',
-        text: 'Carga en efectivo realizada',
+        text: 'Carga por debito realizada',
         confirmButtonText: 'Aceptar',
       });
     }

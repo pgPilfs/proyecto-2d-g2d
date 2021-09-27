@@ -13,6 +13,7 @@ import { ModificarComponent } from './usuario/modificar/modificar.component';
 import { UltimasOperacionesPesosComponent } from './consultas/ultimas-operaciones-pesos/ultimas-operaciones-pesos.component';
 import { TransferenciaIngresoComponent } from './dinero/ingresar/transferencia-ingreso/transferencia-ingreso.component';
 import { EfectivoIngresoComponent } from './dinero/ingresar/efectivo-ingreso/efectivo-ingreso.component';
+import { TarjetaIngresoComponent } from './dinero/ingresar/tarjeta-ingreso/tarjeta-ingreso.component';
 
 const routes: Routes = [
   // HOME PAGE
@@ -28,6 +29,7 @@ const routes: Routes = [
         component: TransferenciaIngresoComponent,
       },
       { path: 'ingresar/efectivo', component: EfectivoIngresoComponent },
+      { path: 'ingresar/tarjeta', component: TarjetaIngresoComponent },
       { path: 'retirar', component: RetirarComponent },
       { path: 'transferir', component: TransferirComponent },
       { path: 'girar', component: GirarComponent },

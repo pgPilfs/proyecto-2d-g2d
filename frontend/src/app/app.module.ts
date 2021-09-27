@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferenciaIngresoComponent } from './dinero/ingresar/transferencia-ingreso/transferencia-ingreso.component';
 import { EfectivoIngresoComponent } from './dinero/ingresar/efectivo-ingreso/efectivo-ingreso.component';
+import { TarjetaIngresoComponent } from './dinero/ingresar/tarjeta-ingreso/tarjeta-ingreso.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { EfectivoIngresoComponent } from './dinero/ingresar/efectivo-ingreso/efe
     UltimasOperacionesPesosComponent,
     TransferenciaIngresoComponent,
     EfectivoIngresoComponent,
+    TarjetaIngresoComponent,
   ],
   imports: [
     BrowserModule,

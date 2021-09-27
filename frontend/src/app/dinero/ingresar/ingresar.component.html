@@ -1,74 +1,22 @@
 <div class="container">
-  <div *ngIf="paymentMethod == ''">
-    <h1>Ingresar dinero</h1>
-    <div class="row main-buttons">
-      <a class="btn btn-block btn-outline-info" [routerLink]="['/dinero/ingresar/transferencia']"> Transferencia
-        Bancaria </a>
-      <a class="btn btn-block btn-outline-info" [routerLink]="['/dinero/ingresar/efectivo']">
-        Efectivo
-      </a>
-      <a class="btn btn-block btn-outline-info" [routerLink]="['/dinero/ingresar/tarjeta']">
-        Tarjeta de Debito
-      </a>
-    </div>
-  </div>
-
-  <div *ngIf="paymentMethod !== '' ">
-    <form [formGroup]="ingresarDineroForm" class="ingresar-form" action="">
-      <!-- TRANSFERENCIA -->
-
-      <!-- EFECTIVO -->
-      <div *ngIf="paymentMethod == 'efectivo'">
-        <label class="form-label" for="monto">Monto</label>
-        <input formControlName="monto" name="monto" class="form-control" type="text" />
-        <label class="form-label" for="lugar-de-pago">Lugar donde pagara</label>
-        <br />
-        <input name="rapipago" type="checkbox" /><span>Rapipago</span>
-        <br />
-        <input name="pagofacil" type="checkbox" /><span>Pago Facil</span>
+  <h1>Ingresar dinero</h1>
+  <div class="row main-buttons">
+    <div class="container" style="max-width: 40vw;">
+      <div class="row mb-4 mt-4">
+        <a class="btn btn-block btn-secondary" style="background-color: #882bda;" [routerLink]="['/dinero/ingresar/transferencia']">
+          Transferencia
+          Bancaria </a>
       </div>
-      <!-- TARJETA DEBITO -->
-      <div *ngIf="paymentMethod == 'tarjeta'">
-        <label class="form-label" for="monto">Monto</label>
-        <input formControlName="monto" name="monto" class="form-control" type="text" />
-        <div class="row">
-          <div class="col">
-            <label for="name">Nombre del Titular</label>
-            <input type="text" name="titular" class="form-control" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label for="numero-tarjeta">Numero de Tarjeta</label>
-            <input type="text" name="numero-tarjeta" class="form-control" />
-          </div>
-          <div class="row">
-            <div class="col">
-              <label for="fecha-expiracion">Fecha de Expiracion</label>
-              <input type="text" name="fecha-expiracion" class="form-control" />
-            </div>
-            <div class="col">
-              <label for="cvv">CVV</label>
-              <input type="text" name="cvv" class="form-control" />
-            </div>
-          </div>
-        </div>
+      <div class="row mb-4">
+        <a class="btn btn-block btn-secondary" style="background-color: #882bda;" [routerLink]="['/dinero/ingresar/efectivo']">
+          Efectivo
+        </a>
       </div>
-
-    </form>
-    <div *ngIf="paymentMethod == 'transferencia'">
-      <div>
-        <h6>
-          Copia tu CVU o alias para ingresar o transferir dinero desde otra
-          cuenta
-        </h6>
-        <br />
-        <p>CVU</p>
-        <p>0000003100046534265614</p>
-        <label>Alias</label>
-        <p>ramiro.lopez.money</p>
+      <div class="row">
+        <a class="btn btn-block btn-secondary" style="background-color: #882bda;" [routerLink]="['/dinero/ingresar/tarjeta']">
+          Tarjeta de Debito
+        </a>
       </div>
-      <button class="btn btn-success">Confirmar</button>
     </div>
   </div>
 </div>

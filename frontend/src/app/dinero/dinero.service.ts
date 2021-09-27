@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class DineroService {
   constructor(private http: HttpClient) {}
 
-  getCuentaActual(id: Number) {
+  getCuentaPorId(id: Number) {
     return this.http.get(`https://localhost:44346/api/cuentas/${id}`);
   }
 

@@ -1,1 +1,40 @@
-<p>efectivo-ingreso works!</p>
+<div class="container d-flex-column justify-content-center" style="max-width: 40vw;">
+
+
+    <div class="card text-white mb-3">
+        <div class="card-body">
+            <h4 class="card-title fw-light">Ingrese el monto a abonar y la sucursal de pago</h4>
+            <form [formGroup]="ingresoEfectivo" class="retirar-form text-center" (ngSubmit)="submitIngresoEfectivo()">
+                <div class="col">
+                    <label class="form-label" for="montoId">Monto</label>
+                    <input
+                        [class.is-invalid]="ingresoEfectivo.get('monto')?.touched && ingresoEfectivo.get('monto')?.invalid"
+                        formControlName="monto" id="montoId" class="form-control" type="text" />
+                    <div class="invalid-feedback">
+                        Ingrese un monto valido
+                    </div>
+                </div>
+                <div class="container col-6 mt-4 mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" formControlName="pago" type="radio" name="pago"
+                            id="flexRadioDefault1" value="Rapipago">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Rapipago
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" formControlName="pago" type="radio" name="pago"
+                            id="flexRadioDefault2" value="Pago Facil" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Pago Facil
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col mt-2">
+                    <button class="btn btn-success" type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

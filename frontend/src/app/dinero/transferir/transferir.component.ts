@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DineroService } from '../dinero.service';
 import Swal from 'sweetalert2';
-import { mergeMap } from 'rxjs/operators';
-// import moment from 'moment';
 
 @Component({
   selector: 'app-transferir',
@@ -47,6 +40,7 @@ export class TransferirComponent implements OnInit {
     if (!this.transferirDineroForm.valid) {
       this.transferirDineroForm.markAllAsTouched();
     } else {
+      // Buscar cuenta con el CVU dado
       const allCuentas: any = await this.dineroService
         .getAllCuentas()
         .toPromise();
@@ -57,30 +51,45 @@ export class TransferirComponent implements OnInit {
         }
       });
       console.log(this.cuentaTransferida);
+
+      // Si existe realizar las actualizaciones en cuenta, movimientos y transferencias
       if (this.cuentaTransferida?.cvu) {
         const cuentaNew = {
-          id: this.cuentaTransferida.id,
-          transferencias: this.cuentaTransferida.transferencias,
-          transferencias1: this.cuentaTransferida.transferencias1,
-          usuarios: this.cuentaTransferida.usuarios,
-          tipo_cuenta: this.cuentaTransferida.tipo_cuenta,
-          movimientos: this.cuentaTransferida.movimientos,
-          fecha_alta: this.cuentaTransferida.fecha_alta,
-          id_tipo_cuenta: this.cuentaTransferida.id_tipo_cuenta,
-          cvu: this.cuentaTransferida.cvu,
-          estado: this.cuentaTransferida.estado,
+          ...this.cuentaTransferida,
           saldo:
             parseFloat(this.cuentaTransferida.saldo) +
             parseFloat(this.transferirDineroForm.get('monto')?.value),
         };
         console.log(cuentaNew);
 
-        const updateSaldo = await this.dineroService
+        //Actualizar saldo en la cuenta que recibe
+        const updateSaldoCuentaRecibe = await this.dineroService
           .updateCuenta(this.cuentaTransferida.id!, cuentaNew)
           .toPromise();
 
-        console.log(updateSaldo);
+        console.log(updateSaldoCuentaRecibe);
 
+        //Buscar cuenta que envia y actualizar saldo
+        const cuentaEnvia: any = await this.dineroService
+          .getCuentaPorId(2)
+          .toPromise();
+
+        console.log(cuentaEnvia.saldo);
+
+        const bodyCuentaEnvia = {
+          ...cuentaEnvia,
+          saldo:
+            parseFloat(cuentaEnvia.saldo) -
+            parseFloat(this.transferirDineroForm.get('monto')?.value),
+        };
+        console.log(bodyCuentaEnvia);
+
+        const updateSaldoCuentaEnvia = await this.dineroService
+          .updateCuenta(2, bodyCuentaEnvia)
+          .toPromise();
+        console.log(updateSaldoCuentaEnvia);
+
+        //Buscar cuenta recibe ya con el saldo actualizado
         const allCuentasNuevo: any = await this.dineroService
           .getAllCuentas()
           .toPromise();
@@ -92,6 +101,7 @@ export class TransferirComponent implements OnInit {
           }
         });
 
+        // Registrar transferencia
         let bodyTransferencia = {
           fecha_hora: new Date(),
           monto: parseFloat(this.transferirDineroForm.get('monto')?.value),
@@ -104,19 +114,41 @@ export class TransferirComponent implements OnInit {
           .toPromise();
         console.log(transferenciaRegistrada);
 
-        let bodyMovimiento = {
+        // Registrar movimiento para la cuenta que envia
+        let bodyMovimientoEnvia = {
           fecha_hora: new Date(),
           monto: parseFloat(this.transferirDineroForm.get('monto')?.value) * -1,
           tipo_movimiento: 'Transferencia',
           id_cuenta: 2,
         };
 
-        const movimientoRegistrado = await this.dineroService
-          .registrarMovimiento(bodyMovimiento)
+        const movimientoEnviaRegistrado = await this.dineroService
+          .registrarMovimiento(bodyMovimientoEnvia)
           .toPromise();
 
-        console.log(movimientoRegistrado);
+        console.log(movimientoEnviaRegistrado);
+
+        // Registrar movimiento para la cuenta que recibe
+        let bodyMovimientoRecibe = {
+          fecha_hora: new Date(),
+          monto: parseFloat(this.transferirDineroForm.get('monto')?.value),
+          tipo_movimiento: 'Transferencia',
+          id_cuenta: this.cuentaTransferida.id,
+        };
+
+        const movimientoRecibeRegistrado = await this.dineroService
+          .registrarMovimiento(bodyMovimientoRecibe)
+          .toPromise();
+        console.log(movimientoRecibeRegistrado);
+
         this.cuentaTransferida = {};
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Transferencia realizada correctamente',
+          confirmButtonText: 'Aceptar',
+        });
       } else {
         Swal.fire({
           icon: 'error',
