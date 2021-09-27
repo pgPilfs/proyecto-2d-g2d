@@ -5,7 +5,7 @@ import {
   Validators,
 } from '@angular/forms';
 import Swal from 'sweetalert2';
-
+import { UsuarioService, usuarios} from '../usuario.service';
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.component.html',
@@ -14,9 +14,14 @@ import Swal from 'sweetalert2';
 export class ModificarComponent implements OnInit {
   modificarForm!: FormGroup;
   passwordForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) {}
+  usuario: usuarios = new usuarios();
+
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
+
+      this.usuarioService.getUsuario(0).subscribe(res => { console.log(res)}, (err) => console.log(err))
+
     this.modificarForm = this.formBuilder.group({
       nombreCompleto: [
         'Santiago Biolatto',
@@ -48,8 +53,9 @@ export class ModificarComponent implements OnInit {
     this.passwordForm.valueChanges.subscribe(console.log);
   }
 
-  submitDatosForm() {
+  submitDatosForm(usuario: usuarios) {
     if (this.modificarForm.valid) {
+      this.usuarioService.updateUsuario((0), this.usuario).subscribe(res=> {console.log(res)}, error => console.log(error));
       Swal.fire({
         icon: 'success',
         title: 'Modificar',

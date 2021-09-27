@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\backend",
+    "\\backend\\PilMoney.API",
+    "\\backend\\PilMoney.API\\PilMoney.API"
   ],
-  "SelectedNode": "\\C:\\Users\\santi\\Source\\Repos\\proyecto-2d-g2d",
+  "SelectedNode": "\\backend\\PilMoney.API\\PilMoney.API.sln",
   "PreviewInSolutionExplorer": false
 }
