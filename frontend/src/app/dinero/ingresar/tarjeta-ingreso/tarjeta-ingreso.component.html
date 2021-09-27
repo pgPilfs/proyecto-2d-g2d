@@ -1,0 +1,36 @@
+<div class="container d-flex-column justify-content-center" style="max-width: 40vw;">
+    <div class="card text-white mb-3">
+        <div class="card-body ">
+            <h4 class="card-title fw-light">Ingrese los datos de la tarjeta y el monto a abonar</h4>
+            <form [formGroup]="ingresoTarjeta" class="retirar-form text-center" (ngSubmit)="submitIngresoTarjeta()">
+                <div class="col">
+                    <label class="form-label" for="montoId">Numero de tarjeta</label>
+                    <input id="tarjetaId" class="form-control" type="text" />
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label" for="montoId">Expiracion</label>
+                        <input id="exp" class="form-control" type="date" />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label" for="montoId">CVV</label>
+                        <input id="cvv" class="form-control" type="text" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="montoId">Monto</label>
+                    <input
+                        [class.is-invalid]="ingresoTarjeta.get('monto')?.touched && ingresoTarjeta.get('monto')?.invalid"
+                        formControlName="monto" id="montoId" class="form-control" type="text" />
+                    <div class="invalid-feedback">
+                        Ingrese un monto valido
+                    </div>
+                </div>
+
+                <div class="col mt-2">
+                    <button class="btn btn-success" type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,10 @@ import { ModificarComponent } from './usuario/modificar/modificar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UltimasOperacionesPesosComponent } from './consultas/ultimas-operaciones-pesos/ultimas-operaciones-pesos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { TransferenciaIngresoComponent } from './dinero/ingresar/transferencia-ingreso/transferencia-ingreso.component';
+import { EfectivoIngresoComponent } from './dinero/ingresar/efectivo-ingreso/efectivo-ingreso.component';
+import { TarjetaIngresoComponent } from './dinero/ingresar/tarjeta-ingreso/tarjeta-ingreso.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConsultaComponent,
     CrearComponent,
     ModificarComponent,
-    UltimasOperacionesPesosComponent
+    UltimasOperacionesPesosComponent,
+    TransferenciaIngresoComponent,
+    EfectivoIngresoComponent,
+    TarjetaIngresoComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,8 +46,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
