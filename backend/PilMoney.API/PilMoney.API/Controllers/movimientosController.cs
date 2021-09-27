@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using PilMoney.API.Models;
+using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
@@ -82,22 +82,7 @@ namespace PilMoney.API.Controllers
             }
 
             db.movimientos.Add(movimientos);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (movimientosExists(movimientos.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = movimientos.id }, movimientos);
         }

@@ -9,9 +9,11 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PilMoney.API.Models;
+using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class cuentasController : ApiController
     {
         private ModelsConfig db = new ModelsConfig();
@@ -80,22 +82,7 @@ namespace PilMoney.API.Controllers
             }
 
             db.cuentas.Add(cuentas);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (cuentasExists(cuentas.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = cuentas.id }, cuentas);
         }

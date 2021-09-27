@@ -8,7 +8,6 @@ namespace PilMoney.API.Models
 
     public partial class movimientos
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public DateTime fecha_hora { get; set; }

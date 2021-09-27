@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ConsultasService {
   constructor(private http: HttpClient) {}
 
-  getAllMovimientos() {
-    return this.http.get('https://localhost:44346/api/movimientos');
+  getCuentaActual(id: Number) {
+    return this.http.get(`https://localhost:44346/api/cuentas/${id}`);
   }
 }
