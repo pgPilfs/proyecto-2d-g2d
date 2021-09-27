@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UsuarioService, usuarios} from '../usuario.service';
 
 @Component({
   selector: 'app-crear',
@@ -10,9 +11,10 @@ import Swal from 'sweetalert2';
 export class CrearComponent implements OnInit {
 
   crearForm!: FormGroup;
+  usuario: usuarios = new usuarios();
 
-  constructor(private formBuilder: FormBuilder) {}
-  
+  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
+
   ngOnInit(): void {
     this.crearForm = this.formBuilder.group({
       nombreCompleto: ['', Validators.compose([Validators.minLength(3), Validators.required])],
@@ -25,9 +27,15 @@ export class CrearComponent implements OnInit {
     });
     this.crearForm.valueChanges.subscribe(console.log)
   }
-  
-  enviarForm() {
+
+  enviarForm(usuario: usuarios) {
     if (this.crearForm.valid) {
+      console.log(usuario);
+      this.usuarioService.saveUsuario(usuario).subscribe(
+       res =>{ console.log(res);},
+       err => { console.log(err); }
+
+      )
       Swal.fire({
         icon: 'success',
         title: 'Registrar',

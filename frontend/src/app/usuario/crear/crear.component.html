@@ -1,4 +1,4 @@
-<form [formGroup]="crearForm" (ngSubmit)="enviarForm()">
+<form [formGroup]="crearForm" (ngSubmit)="enviarForm(usuario)">
     <div class="container">
         <div class="row mt-3 mb-3">
             <!--Nombre completo-->
@@ -6,7 +6,7 @@
                 <label for="nombreCompletoId" class="form-label">Nombre Completo</label>
                 <input
                     [class.is-invalid]="crearForm.get('nombreCompleto')?.touched && crearForm.get('nombreCompleto')?.invalid"
-                    type="text" class="form-control" id="nombreCompletoId" formControlName='nombreCompleto' required>
+                    type="text" class="form-control" id="nombreCompletoId" formControlName='nombreCompleto' required [(ngModel)]="usuario.nombre_completo">
                 <div class="invalid-feedback">
                     Por favor ingrese un nombre valido.
                 </div>
@@ -15,7 +15,7 @@
             <div class="col-12 col-sm-6">
                 <label for="emailId" class="form-label">Email</label>
                 <input [class.is-invalid]="crearForm.get('email')?.touched && crearForm.get('email')?.invalid"
-                    type="email" class="form-control" id="emailId" formControlName='email' required>
+                    type="email" class="form-control" id="emailId" formControlName='email' required [(ngModel)]="usuario.email">
                 <div class="invalid-feedback">
                     Por favor ingrese un email con formato valido.
                 </div>
@@ -24,7 +24,7 @@
             <div class="col-12 col-sm-4">
                 <label for="dniId" class="form-label">DNI</label>
                 <input [class.is-invalid]="crearForm.get('dni')?.touched && crearForm.get('dni')?.invalid"
-                    type="text" class="form-control" id="dniId" formControlName='dni' required>
+                    type="text" class="form-control" id="dniId" formControlName='dni' required [(ngModel)]="usuario.dni">
                 <div class="invalid-feedback">
                     Por favor ingrese un DNI valido (Mínimo 6 caracteres).
                 </div>
@@ -33,11 +33,11 @@
             <div class="col-12 col-sm-4">
                 <label for="sexoId" class="form-label">Sexo</label>
                 <select [class.is-invalid]="crearForm.get('sexo')?.touched && crearForm.get('sexo')?.invalid"
-                    class="form-select" id="sexoId" formControlName="sexo" required>
+                    class="form-select" id="sexoId" formControlName="sexo" required [(ngModel)]="usuario.sexo">
                     <option selected disabled value="">Elija...</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Otro">Otro</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">Otro</option>
                 </select>
                 <div class="invalid-feedback">
                     Por favor seleccione una opción.
@@ -49,7 +49,7 @@
                 <input
                     [class.is-invalid]="crearForm.get('fechaDeNacimiento')?.touched && crearForm.get('fechaDeNacimiento')?.invalid"
                     type="date" class="form-control" id="fechaDeNacimientoId" formControlName='fechaDeNacimiento'
-                    min="1900-01-01" max="2999-12-31" required>
+                    min="1900-01-01" max="2999-12-31" required [(ngModel)]="usuario.fecha_nac">
                 <div class="invalid-feedback">
                     Ingrese una fecha valida.
                 </div>
@@ -59,7 +59,7 @@
                 <label for="contraseñaId" class="form-label">Contraseña</label>
                 <input
                     [class.is-invalid]="crearForm.get('contraseña')?.touched && crearForm.get('contraseña')?.invalid"
-                    type="password" class="form-control" id="contraseñaId" formControlName='contraseña' required>
+                    type="password" class="form-control" id="contraseñaId" formControlName='contraseña' required [(ngModel)]="usuario.password">
                 <div class="invalid-feedback">
                     La contraseña debe tener al menos 8 caracteres.
                 </div>
