@@ -1,4 +1,4 @@
-namespace PilMoney.API
+namespace PilMoney.API.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,22 +6,22 @@ namespace PilMoney.API
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("TipoCuenta")]
-    public partial class TipoCuenta
+    public partial class tipo_cuenta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoCuenta()
+        public tipo_cuenta()
         {
-            Cuentas = new HashSet<Cuenta>();
+            cuentas = new HashSet<cuentas>();
         }
 
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int id { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string Tipo { get; set; }
+        [StringLength(50)]
+        public string tipo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cuenta> Cuentas { get; set; }
+        public virtual ICollection<cuentas> cuentas { get; set; }
     }
 }
