@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService, usuarios } from '../usuario.service';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-modificar',
@@ -14,14 +15,17 @@ export class ModificarComponent implements OnInit {
   passwordForm!: FormGroup;
   usuario: usuarios = new usuarios();
   usuarioResponse: any;
+  id!: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.usuarioService.getUsuario(1).subscribe(
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.usuarioService.getUsuario(parseInt(this.id)).subscribe(
       (res: any) => {
         this.usuarioResponse = res;
         console.log('respuesta un usuario', res);
@@ -127,7 +131,7 @@ export class ModificarComponent implements OnInit {
         ...this.usuarioResponse,
         password: this.usuario.password,
       };
-      this.usuarioService.updateUsuario(1, newUser).subscribe(
+      this.usuarioService.updateUsuario(parseInt(this.id), newUser).subscribe(
         (res) => {
           console.log(res);
         },

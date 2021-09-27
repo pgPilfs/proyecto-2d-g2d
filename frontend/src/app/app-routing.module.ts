@@ -48,7 +48,7 @@ const routes: Routes = [
   //login, modificar, crear USUARIOS
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: CrearComponent },
-  { path: 'modificar', component: ModificarComponent },
+  { path: 'modificar/:id', component: ModificarComponent },
 
   { path: '**', component: LandingPageComponent },
 ];
