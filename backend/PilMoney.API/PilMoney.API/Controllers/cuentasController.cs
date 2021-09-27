@@ -79,6 +79,10 @@ namespace PilMoney.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            cuentas.saldo = 0;
+            cuentas.cvu = CVUGenerator();
+            cuentas.estado = "Activo";
+
             db.cuentas.Add(cuentas);
 
             try
@@ -128,6 +132,17 @@ namespace PilMoney.API.Controllers
         private bool cuentasExists(int id)
         {
             return db.cuentas.Count(e => e.id == id) > 0;
+        }
+
+        private string CVUGenerator()
+        {
+            Random r = new Random();
+            string numero = "";
+            for (int i = 0; i < 10; i++)
+            {
+                numero += r.Next(0, 9).ToString();
+            }
+            return numero;
         }
     }
 }
