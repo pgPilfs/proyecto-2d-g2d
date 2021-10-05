@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,11 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
 
-  constructor(private auth: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private auth: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -35,6 +40,8 @@ export class LoginComponent implements OnInit {
         icon: 'success',
         title: 'TODO OK ACA VIEJA',
         text: 'HUBO ALGO PAPA',
+      }).then((res) => {
+        this.router.navigate(['/consulta']);
       });
     } catch (err) {
       console.log(err);
