@@ -32,10 +32,18 @@ namespace PilMoney.API.Controllers
             if (login == null) return BadRequest();
 
                 if (usuariosController.usuarioAndPass(login.Username, login.Password))
-                {   
+                {
+                    var id = usuariosController.getIdUsuario(login.Username);
                     var token = TokenGenerator.GenerateTokenJwt(login.Username);
-                    login.Token = token;
-                    return Ok(login);
+                    var userToken = new UserToken();
+                    userToken.Id = id;
+                    userToken.Username = login.Username;
+                    userToken.Token = token;
+
+                    // login.Token = token;
+                    // login.Id = id;
+
+                    return Ok(userToken);
                 }
                 else
                 {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,23 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     };
     console.log(loginBody);
-    const res = await this.auth.login(loginBody).toPromise();
-    console.log(res);
+    try {
+      const res = await this.auth.login(loginBody).toPromise();
+      console.log(res);
+      localStorage.setItem('auth', JSON.stringify(res));
+      Swal.fire({
+        icon: 'success',
+        title: 'TODO OK ACA VIEJA',
+        text: 'HUBO ALGO PAPA',
+      });
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Usuarios y/o contraseña incorrecta',
+      });
+    }
   }
 }
 

@@ -199,6 +199,7 @@
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\tipo_cuenta.cs" />
     <Compile Include="Models\transferencias.cs" />
+    <Compile Include="Models\UserToken.cs" />
     <Compile Include="Models\usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
