@@ -36,3 +36,9 @@ export class usuarios {
   email: string = '';
   id_cuenta?: number;
 }
+
+export class LoginRequest {
+  username: string = '';
+  password: string = '';
+  token?: string;
+}

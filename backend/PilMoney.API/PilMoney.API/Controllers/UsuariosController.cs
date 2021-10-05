@@ -10,10 +10,10 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using PilMoney.API.Models;
-using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
+    [Authorize]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class usuariosController : ApiController
     {
@@ -34,7 +34,7 @@ namespace PilMoney.API.Controllers
             {
                 return NotFound();
             }
-
+            
             return Ok(usuarios);
         }
 
@@ -119,5 +119,14 @@ namespace PilMoney.API.Controllers
         {
             return db.usuarios.Count(e => e.id == id) > 0;
         }
+
+        public static bool usuarioAndPass(string username, string password)
+        {
+            using (ModelsConfig entities = new ModelsConfig())
+            {
+                return entities.usuarios.Any(user => user.email.Equals(username) && user.password == password);
+            }
+        }
+
     }
 }

@@ -1,14 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../auth/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup = new FormGroup({});
 
-  constructor() { }
+  constructor(private auth: AuthService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.required],
+    });
+    this.loginForm.valueChanges.subscribe(console.log);
   }
+  async submitLogin() {
+    const loginBody = {
+      username: this.loginForm.value.username,
+      password: this.loginForm.value.password,
+    };
+    console.log(loginBody);
+    const res = await this.auth.login(loginBody).toPromise();
+    console.log(res);
+  }
+}
+
+export class LoginRequest {
+  username: string = '';
+  password: string = '';
+  token?: string;
 }
