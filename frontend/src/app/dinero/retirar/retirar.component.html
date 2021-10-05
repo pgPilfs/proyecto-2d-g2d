@@ -1,0 +1,21 @@
+<div class="container d-flex-column justify-content-center" style="max-width: 40vw;">
+  <div class="card text-white mb-3">
+    <div class="card-body ">
+      <h4 class="card-title fw-light">Ingrese el monto a retirar</h4>
+      <form [formGroup]="retiroDinero" class="retirar-form text-center" (ngSubmit)="submitRetiroDinero()">
+        <div class="col">
+          <label class="form-label" for="montoId">Monto</label>
+          <input [class.is-invalid]="retiroDinero.get('monto')?.touched && retiroDinero.get('monto')?.invalid"
+            formControlName="monto" id="montoId" class="form-control" type="text" />
+          <div class="invalid-feedback">
+            Ingrese un monto valido
+          </div>
+        </div>
+
+        <div class="col mt-2">
+          <button class="btn btn-success" type="submit">Confirmar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
