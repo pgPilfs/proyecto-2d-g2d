@@ -40,9 +40,6 @@ namespace PilMoney.API.Controllers
                     userToken.Username = login.Username;
                     userToken.Token = token;
 
-                    // login.Token = token;
-                    // login.Id = id;
-
                     return Ok(userToken);
                 }
                 else
@@ -50,22 +47,5 @@ namespace PilMoney.API.Controllers
                     return Unauthorized();
                 }
         }
-
-
-
-
-        //var isUserValid = (login.Username == "user" && login.Password == "123456");
-        //if (isUserValid)
-        //{
-        //    var token = TokenGenerator.GenerateTokenJwt(login.Username);
-        //    login.Token = token;
-        //    return Ok(login);
-        //}
-        //else
-        //{
-        //    return Unauthorized();
-        //}
-
-
     }
 }

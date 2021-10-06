@@ -17,7 +17,11 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+    if (localStorage.getItem('auth')) {
+      this.router.navigate(['/consulta']);
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({

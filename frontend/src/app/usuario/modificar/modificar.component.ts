@@ -16,6 +16,10 @@ export class ModificarComponent implements OnInit {
   usuario: usuarios = new usuarios();
   usuarioResponse: any;
   id!: any;
+  userJson = localStorage.getItem('auth');
+  user = {
+    Id: 0,
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,14 +28,10 @@ export class ModificarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let userJson = localStorage.getItem('auth');
-    let user = {
-      Id: 0,
-    };
-    if (userJson) {
-      user = JSON.parse(userJson);
+    if (this.userJson) {
+      this.user = JSON.parse(this.userJson);
     }
-    this.usuarioService.getUsuario(user.Id).subscribe(
+    this.usuarioService.getUsuario(this.user.Id).subscribe(
       (res: any) => {
         this.usuarioResponse = res;
         console.log('respuesta un usuario', res);
@@ -92,7 +92,7 @@ export class ModificarComponent implements OnInit {
 
       console.log('Usuario antes de updatear', newUser);
 
-      this.usuarioService.updateUsuario(1, newUser).subscribe(
+      this.usuarioService.updateUsuario(this.user.Id, newUser).subscribe(
         (res) => {
           console.log(res);
         },
