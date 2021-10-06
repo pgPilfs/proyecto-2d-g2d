@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +14,7 @@ export class AuthService {
     return this.http.post(this.url + '/login/auth', loginBody);
   }
 
-  async validarToken(): Promise<boolean> {
+  validarToken(): Observable<boolean> {
     let userJson = localStorage.getItem('auth');
     let user = {
       Token: '',
@@ -21,18 +23,15 @@ export class AuthService {
       user = JSON.parse(userJson);
     }
     let headers = new HttpHeaders().set('Authorization', user.Token);
-    try {
-      const response = await this.http
-        .get(this.url + '/movimientos', { headers })
-        .toPromise();
-      if (response) {
+
+    return this.http.get(this.url + '/movimientos', { headers }).pipe(
+      map((res: any) => {
         return true;
-      } else {
-        return false;
-      }
-    } catch (err) {
-      return false;
-    }
+      }),
+      catchError((err) => {
+        return of(false);
+      })
+    );
   }
 }
 
