@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +21,18 @@ export class AuthService {
       user = JSON.parse(userJson);
     }
     let headers = new HttpHeaders().set('Authorization', user.Token);
-    const response = await this.http.get(this.url + '/movimientos', { headers }).toPromise();
-    console.log(response);
-    return true;
+    try {
+      const response = await this.http
+        .get(this.url + '/movimientos', { headers })
+        .toPromise();
+      if (response) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
   }
 }
 
