@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService, usuarios } from '../usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear',
@@ -19,7 +20,8 @@ export class CrearComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +101,8 @@ export class CrearComponent implements OnInit {
             <li><strong>Sexo:</strong> ${this.crearForm.value.sexo}</li>
             </ul>`,
             confirmButtonText: 'Aceptar',
+          }).then(() => {
+            this.router.navigate(['/login']);
           });
         }
       });

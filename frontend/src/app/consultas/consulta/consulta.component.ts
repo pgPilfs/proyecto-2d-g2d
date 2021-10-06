@@ -12,7 +12,14 @@ export class ConsultaComponent implements OnInit {
   constructor(private consultasService: ConsultasService) {}
 
   ngOnInit(): void {
-    this.consultasService.getCuentaActual(2).subscribe((res: any) => {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
+    this.consultasService.getCuentaActual(user.Id).subscribe((res: any) => {
       this.saldo = res.saldo;
       console.log(res);
     });

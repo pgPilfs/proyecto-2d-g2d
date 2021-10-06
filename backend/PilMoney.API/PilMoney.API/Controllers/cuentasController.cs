@@ -13,18 +13,21 @@ using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
+    
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class cuentasController : ApiController
     {
         private ModelsConfig db = new ModelsConfig();
 
         // GET: api/cuentas
+        [Authorize]
         public IQueryable<cuentas> Getcuentas()
         {
             return db.cuentas;
         }
 
         // GET: api/cuentas/5
+        [Authorize]
         [ResponseType(typeof(cuentas))]
         public IHttpActionResult Getcuentas(int id)
         {
@@ -38,6 +41,7 @@ namespace PilMoney.API.Controllers
         }
 
         // PUT: api/cuentas/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult Putcuentas(int id, cuentas cuentas)
         {
@@ -95,6 +99,7 @@ namespace PilMoney.API.Controllers
         }
 
         // DELETE: api/cuentas/5
+        [Authorize]
         [ResponseType(typeof(cuentas))]
         public IHttpActionResult Deletecuentas(int id)
         {

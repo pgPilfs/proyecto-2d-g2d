@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using PilMoney.API.Models;
-using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
@@ -20,12 +19,14 @@ namespace PilMoney.API.Controllers
         private ModelsConfig db = new ModelsConfig();
 
         // GET: api/usuarios
+        [Authorize]
         public IQueryable<usuarios> Getusuarios()
         {
             return db.usuarios;
         }
 
         // GET: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(usuarios))]
         public IHttpActionResult Getusuarios(int id)
         {
@@ -34,11 +35,12 @@ namespace PilMoney.API.Controllers
             {
                 return NotFound();
             }
-
+            
             return Ok(usuarios);
         }
 
         // PUT: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult Putusuarios(int id, usuarios usuarios)
         {
@@ -91,6 +93,7 @@ namespace PilMoney.API.Controllers
         }
 
         // DELETE: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(usuarios))]
         public IHttpActionResult Deleteusuarios(int id)
         {
@@ -119,5 +122,27 @@ namespace PilMoney.API.Controllers
         {
             return db.usuarios.Count(e => e.id == id) > 0;
         }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public static bool usuarioAndPass(string username, string password)
+        {
+            using (ModelsConfig entities = new ModelsConfig())
+            {
+                return entities.usuarios.Any(user => user.email.Equals(username) && user.password == password);
+            }
+        }
+
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public static int getIdUsuario(string username)
+        {
+            using (ModelsConfig entities = new ModelsConfig())
+            {
+                var userEncontrado = entities.usuarios.Where(user => user.email.Equals(username)).FirstOrDefault<usuarios>();
+                return userEncontrado.id;
+            }
+        }
+
+
+
     }
 }

@@ -14,9 +14,14 @@ export class UltimasOperacionesPesosComponent implements OnInit {
   // Ejemplo como si el usuarios con id 2 estaria logueado
   // Con authenticacion seria getMovimientosUsuario(idUsuarioLogueado)
   ngOnInit(): void {
-    console.log(new Date());
-
-    this.consultasService.getCuentaActual(2).subscribe((res: any) => {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
+    this.consultasService.getCuentaActual(user.Id).subscribe((res: any) => {
       this.movimientos = res.movimientos;
       console.log(res);
     });
