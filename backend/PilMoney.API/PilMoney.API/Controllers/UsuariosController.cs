@@ -13,19 +13,20 @@ using PilMoney.API.Models;
 
 namespace PilMoney.API.Controllers
 {
-    [Authorize]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class usuariosController : ApiController
     {
         private ModelsConfig db = new ModelsConfig();
 
         // GET: api/usuarios
+        [Authorize]
         public IQueryable<usuarios> Getusuarios()
         {
             return db.usuarios;
         }
 
         // GET: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(usuarios))]
         public IHttpActionResult Getusuarios(int id)
         {
@@ -39,6 +40,7 @@ namespace PilMoney.API.Controllers
         }
 
         // PUT: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult Putusuarios(int id, usuarios usuarios)
         {
@@ -91,6 +93,7 @@ namespace PilMoney.API.Controllers
         }
 
         // DELETE: api/usuarios/5
+        [Authorize]
         [ResponseType(typeof(usuarios))]
         public IHttpActionResult Deleteusuarios(int id)
         {

@@ -13,6 +13,7 @@ using System.Web.Http.Cors;
 
 namespace PilMoney.API.Controllers
 {
+    [Authorize]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class tipo_cuentaController : ApiController
     {

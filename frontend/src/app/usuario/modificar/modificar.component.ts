@@ -24,8 +24,14 @@ export class ModificarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.usuarioService.getUsuario(parseInt(this.id)).subscribe(
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
+    this.usuarioService.getUsuario(user.Id).subscribe(
       (res: any) => {
         this.usuarioResponse = res;
         console.log('respuesta un usuario', res);

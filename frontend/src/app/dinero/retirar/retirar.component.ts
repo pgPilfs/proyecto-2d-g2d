@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DineroService } from '../dinero.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-retirar',
@@ -10,7 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class RetirarComponent implements OnInit {
   retiroDinero!: FormGroup;
-  constructor(private fb: FormBuilder, private dineroService: DineroService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dineroService: DineroService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.retiroDinero = this.fb.group({
@@ -26,11 +31,18 @@ export class RetirarComponent implements OnInit {
   }
 
   async submitRetiroDinero() {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
     let bodyMovimiento = {
       fecha_hora: new Date(),
       monto: parseFloat(this.retiroDinero.value.monto) * -1,
       tipo_movimiento: 'Retiro cajero',
-      id_cuenta: 2,
+      id_cuenta: user.Id,
     };
     console.log(bodyMovimiento);
 
@@ -38,7 +50,9 @@ export class RetirarComponent implements OnInit {
       .registrarMovimiento(bodyMovimiento)
       .toPromise();
 
-    const cuenta: any = await this.dineroService.getCuentaPorId(2).toPromise();
+    const cuenta: any = await this.dineroService
+      .getCuentaPorId(user.Id)
+      .toPromise();
 
     const bodyCuenta = {
       ...cuenta,
@@ -47,8 +61,10 @@ export class RetirarComponent implements OnInit {
         parseFloat(this.retiroDinero.get('monto')?.value),
     };
 
+    console.log(user.Id);
+
     const updateSaldoCuenta = await this.dineroService
-      .updateCuenta(2, bodyCuenta)
+      .updateCuenta(user.Id, bodyCuenta)
       .toPromise();
 
     console.log(updateSaldoCuenta);
@@ -58,6 +74,8 @@ export class RetirarComponent implements OnInit {
         title: 'Listo!',
         text: 'Retiro de dinero realizado',
         confirmButtonText: 'Aceptar',
+      }).then(() => {
+        this.router.navigate(['/consulta']);
       });
     }
   }

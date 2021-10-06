@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DineroService } from '../dinero.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transferir',
@@ -13,7 +14,11 @@ export class TransferirComponent implements OnInit {
   cuentaTransferida: any;
   cuentaAMostrar: any = { usuarios: [{ nombre_completo: '-' }], saldo: 0 };
 
-  constructor(private fb: FormBuilder, private dineroService: DineroService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dineroService: DineroService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.transferirDineroForm = this.fb.group({
@@ -37,6 +42,14 @@ export class TransferirComponent implements OnInit {
   }
 
   async submitTransferencia() {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
+
     if (!this.transferirDineroForm.valid) {
       this.transferirDineroForm.markAllAsTouched();
     } else {
@@ -71,7 +84,7 @@ export class TransferirComponent implements OnInit {
 
         //Buscar cuenta que envia y actualizar saldo
         const cuentaEnvia: any = await this.dineroService
-          .getCuentaPorId(2)
+          .getCuentaPorId(user.Id)
           .toPromise();
 
         console.log(cuentaEnvia.saldo);
@@ -85,7 +98,7 @@ export class TransferirComponent implements OnInit {
         console.log(bodyCuentaEnvia);
 
         const updateSaldoCuentaEnvia = await this.dineroService
-          .updateCuenta(2, bodyCuentaEnvia)
+          .updateCuenta(user.Id, bodyCuentaEnvia)
           .toPromise();
         console.log(updateSaldoCuentaEnvia);
 
@@ -119,7 +132,7 @@ export class TransferirComponent implements OnInit {
           fecha_hora: new Date(),
           monto: parseFloat(this.transferirDineroForm.get('monto')?.value) * -1,
           tipo_movimiento: 'Transferencia',
-          id_cuenta: 2,
+          id_cuenta: user.Id,
         };
 
         const movimientoEnviaRegistrado = await this.dineroService
@@ -148,6 +161,8 @@ export class TransferirComponent implements OnInit {
           title: 'Registrado',
           text: 'Transferencia realizada correctamente',
           confirmButtonText: 'Aceptar',
+        }).then(() => {
+          this.router.navigate(['/consulta']);
         });
       } else {
         Swal.fire({

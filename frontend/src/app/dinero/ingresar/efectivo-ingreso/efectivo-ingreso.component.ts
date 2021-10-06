@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { DineroService } from '../../dinero.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-efectivo-ingreso',
   templateUrl: './efectivo-ingreso.component.html',
@@ -14,7 +15,11 @@ import Swal from 'sweetalert2';
 })
 export class EfectivoIngresoComponent implements OnInit {
   ingresoEfectivo: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private dineroService: DineroService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dineroService: DineroService,
+    private router: Router
+  ) {}
   radioPago: FormControl = new FormControl();
 
   ngOnInit(): void {
@@ -32,19 +37,29 @@ export class EfectivoIngresoComponent implements OnInit {
   }
 
   async submitIngresoEfectivo() {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
+
     let bodyMovimiento = {
       fecha_hora: new Date(),
       monto: parseFloat(this.ingresoEfectivo.value.monto),
       tipo_movimiento: this.ingresoEfectivo.value.pago,
-      id_cuenta: 2,
+      id_cuenta: user.Id,
     };
-    console.log("BODY MOVIMIENTO",bodyMovimiento);
+    console.log('BODY MOVIMIENTO', bodyMovimiento);
 
     const res = await this.dineroService
       .registrarMovimiento(bodyMovimiento)
       .toPromise();
 
-    const cuenta: any = await this.dineroService.getCuentaPorId(2).toPromise();
+    const cuenta: any = await this.dineroService
+      .getCuentaPorId(user.Id)
+      .toPromise();
 
     const bodyCuenta = {
       ...cuenta,
@@ -54,7 +69,7 @@ export class EfectivoIngresoComponent implements OnInit {
     };
 
     const updateSaldoCuentaEnvia = await this.dineroService
-      .updateCuenta(2, bodyCuenta)
+      .updateCuenta(user.Id, bodyCuenta)
       .toPromise();
 
     console.log(updateSaldoCuentaEnvia);
@@ -65,6 +80,8 @@ export class EfectivoIngresoComponent implements OnInit {
         title: 'Listo!',
         text: 'Carga en efectivo realizada',
         confirmButtonText: 'Aceptar',
+      }).then(()=>{
+        this.router.navigate(['/consulta']);
       });
     }
   }

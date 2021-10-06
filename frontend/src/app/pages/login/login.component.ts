@@ -35,11 +35,12 @@ export class LoginComponent implements OnInit {
     try {
       const res = await this.auth.login(loginBody).toPromise();
       console.log(res);
+      localStorage.removeItem('auth');
       localStorage.setItem('auth', JSON.stringify(res));
       Swal.fire({
         icon: 'success',
-        title: 'TODO OK ACA VIEJA',
-        text: 'HUBO ALGO PAPA',
+        title: 'Login',
+        text: 'Se ingreso correctamente',
       }).then((res) => {
         this.router.navigate(['/consulta']);
       });

@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { DineroService } from '../../dinero.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tarjeta-ingreso',
@@ -15,7 +16,11 @@ import Swal from 'sweetalert2';
 })
 export class TarjetaIngresoComponent implements OnInit {
   ingresoTarjeta: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private dineroService: DineroService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dineroService: DineroService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.ingresoTarjeta = this.fb.group({
@@ -31,11 +36,18 @@ export class TarjetaIngresoComponent implements OnInit {
   }
 
   async submitIngresoTarjeta() {
+    let userJson = localStorage.getItem('auth');
+    let user = {
+      Id: 0,
+    };
+    if (userJson) {
+      user = JSON.parse(userJson);
+    }
     let bodyMovimiento = {
       fecha_hora: new Date(),
       monto: parseFloat(this.ingresoTarjeta.value.monto),
       tipo_movimiento: 'Tarjeta-Debito',
-      id_cuenta: 2,
+      id_cuenta: user.Id,
     };
     console.log(bodyMovimiento);
 
@@ -43,7 +55,9 @@ export class TarjetaIngresoComponent implements OnInit {
       .registrarMovimiento(bodyMovimiento)
       .toPromise();
 
-    const cuenta: any = await this.dineroService.getCuentaPorId(2).toPromise();
+    const cuenta: any = await this.dineroService
+      .getCuentaPorId(user.Id)
+      .toPromise();
 
     const bodyCuenta = {
       ...cuenta,
@@ -53,7 +67,7 @@ export class TarjetaIngresoComponent implements OnInit {
     };
 
     const updateSaldoCuentaEnvia = await this.dineroService
-      .updateCuenta(2, bodyCuenta)
+      .updateCuenta(user.Id, bodyCuenta)
       .toPromise();
 
     console.log(updateSaldoCuentaEnvia);
@@ -63,6 +77,8 @@ export class TarjetaIngresoComponent implements OnInit {
         title: 'Listo!',
         text: 'Carga por debito realizada',
         confirmButtonText: 'Aceptar',
+      }).then(() => {
+        this.router.navigate(['/consulta']);
       });
     }
   }
