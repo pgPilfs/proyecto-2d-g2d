@@ -22,7 +22,6 @@ export class ValidarTokenGuard implements CanActivate, CanLoad {
     );
   }
   canLoad(): Observable<boolean> | boolean | Promise<boolean> {
-    console.log('canLoad');
     return this.auth.validarToken().pipe(
       tap((valid) => {
         if (!valid) {
